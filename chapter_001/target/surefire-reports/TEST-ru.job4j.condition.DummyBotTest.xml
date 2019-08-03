@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="4" failures="0" name="ru.job4j.converter.ConverterTest" time="0" errors="0" skipped="0">
+<testsuite tests="3" failures="0" name="ru.job4j.condition.DummyBotTest" time="0" errors="0" skipped="0">
   <properties>
     <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
     <property name="java.vm.version" value="11.0.4+11-post-Ubuntu-1ubuntu218.04.3"/>
@@ -61,8 +61,7 @@
     <property name="sun.cpu.endian" value="little"/>
     <property name="sun.cpu.isalist" value=""/>
   </properties>
-  <testcase classname="ru.job4j.converter.ConverterTest" name="euroToRuble" time="0"/>
-  <testcase classname="ru.job4j.converter.ConverterTest" name="rubleToDollar" time="0"/>
-  <testcase classname="ru.job4j.converter.ConverterTest" name="dollarToRuble" time="0"/>
-  <testcase classname="ru.job4j.converter.ConverterTest" name="rubleToEuro" time="0"/>
+  <testcase classname="ru.job4j.condition.DummyBotTest" name="whenUnknownBot" time="0"/>
+  <testcase classname="ru.job4j.condition.DummyBotTest" name="whenByeBot" time="0"/>
+  <testcase classname="ru.job4j.condition.DummyBotTest" name="whenGreetBot" time="0"/>
 </testsuite>
