@@ -19,12 +19,12 @@ public class BoardTest {
     }
 
     @Test
-    public void when8x8() {
+    public void when5x4() {
         Board board = new Board();
-        String rsl = board.paint(8, 8);
+        String rsl = board.paint(5, 4);
         String ln = System.lineSeparator();
         assertThat(rsl, is(
-                String.format("X X X X %s X X X X%sX X X X %s X X X X%sX X X X %s X X X X%sX X X X %s X X X X%s", ln, ln, ln, ln, ln, ln, ln, ln)
+                String.format("X X X%s X X %sX X X%s X X %s", ln, ln, ln, ln)
                 )
         );
     }
