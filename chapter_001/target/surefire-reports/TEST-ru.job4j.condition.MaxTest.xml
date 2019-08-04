@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="1" failures="0" name="ru.job4j.condition.PointTest" time="0.001" errors="0" skipped="0">
+<testsuite tests="3" failures="0" name="ru.job4j.condition.MaxTest" time="0" errors="0" skipped="0">
   <properties>
     <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
     <property name="java.vm.version" value="11.0.4+11-post-Ubuntu-1ubuntu218.04.3"/>
@@ -60,5 +60,7 @@
     <property name="sun.cpu.endian" value="little"/>
     <property name="sun.cpu.isalist" value=""/>
   </properties>
-  <testcase classname="ru.job4j.condition.PointTest" name="distance" time="0.001"/>
+  <testcase classname="ru.job4j.condition.MaxTest" name="whenMax2To1Then2" time="0"/>
+  <testcase classname="ru.job4j.condition.MaxTest" name="whenMax2To2Then2" time="0"/>
+  <testcase classname="ru.job4j.condition.MaxTest" name="whenMax1To2Then2" time="0"/>
 </testsuite>
