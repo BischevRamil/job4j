@@ -8,5 +8,3 @@
 
 package ru.job4j.calculator;
 
-public class package_info {
-}
