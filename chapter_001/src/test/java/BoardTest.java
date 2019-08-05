@@ -1,7 +1,7 @@
-package ru.job4j.condition;
+package ru.job4j.loop;
 
 import org.junit.Test;
-import ru.job4j.loop.Board;
+//import ru.job4j.loop.Board;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
