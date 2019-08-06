@@ -44,6 +44,45 @@ public class MatrixCheckTest {
     }
 
     @Test
+    public void whenDataNotMonoByTrueThenFalse44() {
+        MatrixCheck check = new MatrixCheck();
+        boolean[][] input = new boolean[][] {
+                {true, true, false, false},
+                {false, true, true, false},
+                {true, false, true, true},
+                {false, false, true, true}
+        };
+        boolean result = check.mono(input);
+        assertThat(result, is(false));
+    }
+
+    @Test
+    public void whenDataMonoByTrueThenTrue44() {
+        MatrixCheck check = new MatrixCheck();
+        boolean[][] input = new boolean[][] {
+                {true, true, false, true},
+                {false, true, true, false},
+                {true, true, true, true},
+                {true, false, true, true}
+        };
+        boolean result = check.mono(input);
+        assertThat(result, is(true));
+    }
+
+    @Test
+    public void whenDataMonoByTrueThenFalse44() {
+        MatrixCheck check = new MatrixCheck();
+        boolean[][] input = new boolean[][] {
+                {true, true, false, true},
+                {false, true, true, false},
+                {true, true, true, true},
+                {false, false, true, true}
+        };
+        boolean result = check.mono(input);
+        assertThat(result, is(false));
+    }
+
+    @Test
     public void whenDataMonoByTrueThenTrue55() {
         MatrixCheck check = new MatrixCheck();
         boolean[][] input = new boolean[][] {
