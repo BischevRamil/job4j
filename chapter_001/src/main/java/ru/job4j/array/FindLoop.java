@@ -29,4 +29,19 @@ public class FindLoop {
         }
         return rst;
     }
+
+    public int[] sort(int[] data) {
+        int min = data[0];
+        int s = 0;
+        for (int i=0; i<data.length; i++){
+            min = data[i];
+            for (int j=i; j<data.length; j++) {
+                if (data[j] < min) min = data[j];
+            }
+            s = indexOf(data, min, i, data.length-1);
+            data[s] = data[i];
+            data[i] = min;
+        }
+        return data;
+    }
 }
