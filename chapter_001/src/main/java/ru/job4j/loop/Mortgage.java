@@ -6,13 +6,13 @@ public class Mortgage {
         int year = 0;
         boolean isClose = false;
         while (!isClose) {
-            if ((monthly * 12) >= amount+(amount * (percent / 100))) {
+            if ((monthly * 12) >= amount + (amount * (percent / 100))) {
                 isClose = true;
                 year++;
                 break;
             }
             year++;
-            amount = amount-(monthly*12);
+            amount = amount - (monthly * 12);
         }
         return year;
     }

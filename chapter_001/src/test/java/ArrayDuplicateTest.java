@@ -9,8 +9,8 @@ public class ArrayDuplicateTest {
 
     @Test
     public void whenRemoveDuplicatesThenArrayWithoutDuplicate() {
-        String[] input = {"2","3","2","5","4"};
-        String[] except = {"2","3","5","4"};
+        String[] input = {"2", "3", "2", "5", "4"};
+        String[] except = {"2", "3", "5", "4"};
         ArrayDuplicate duplicate = new ArrayDuplicate();
         String[] result = duplicate.removeDuplicates(input);
         assertThat(result, arrayContainingInAnyOrder(except));

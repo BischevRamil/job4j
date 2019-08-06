@@ -10,8 +10,8 @@ public class CounterTest {
 
     @Test
     public void sum20() {
-        Counter counter=new Counter();
-        int result = counter.add(0,20);
+        Counter counter = new Counter();
+        int result = counter.add(0, 20);
         assertThat(result, is(110));
     }
 }

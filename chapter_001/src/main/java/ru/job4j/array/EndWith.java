@@ -17,10 +17,10 @@ public class EndWith {
         boolean result = true;
         char[] pst = post.toCharArray();
         char[] wrd = word.toCharArray();
-        int n = wrd.length-pst.length;
-        for (int i=wrd.length-1; i>=n; i--) {
-            if (wrd[i]!=pst[i-n]){
-                result=false;
+        int n = wrd.length - pst.length;
+        for (int i = wrd.length - 1; i >= n; i--) {
+            if (wrd[i] != pst[i - n]) {
+                result = false;
                 break;
             }
         }
