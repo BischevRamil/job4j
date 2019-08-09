@@ -7,12 +7,12 @@ public class Max {
     }
 
     public int max(int first, int second, int third) {
-        int result = max(first, second) > third ? max(first, second) : third;
+        int result = max(max(first, second), third);
         return result;
     }
 
     public int max(int first, int second, int third, int forth) {
-        int result = max(first, second, third) > forth ? max(first, second, third) : forth;
+        int result = max(max(max(first, second), third), forth);
         return result;
     }
 }
