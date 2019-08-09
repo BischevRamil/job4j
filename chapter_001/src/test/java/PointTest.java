@@ -8,12 +8,23 @@ public class PointTest {
     @Test
     public void whenZeroAndTenThenTen() {
         Point first = new Point(0, 0);
-        Point second = new Point(0, 10);
+        Point second = new Point(0, 15);
         double result = first.distance(second);
         first.info();
         second.info();
         System.out.println(String.format("Result is %s", result));
-        assertThat(result, is(10D));
+        assertThat(result, is(15D));
+    }
+
+    @Test
+    public void whenZeroAndTenZThenTen() {
+        Point first = new Point(0, 0, 0);
+        Point second = new Point(2, 4, 4);
+        double result = first.distance(second);
+        first.info();
+        second.info();
+        System.out.println(String.format("Result is %s", result));
+        assertThat(result, is(6D));
     }
 
     @Test
