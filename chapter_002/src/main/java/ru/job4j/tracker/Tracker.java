@@ -1,6 +1,7 @@
 package ru.job4j.tracker;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Random;
 import java.lang.System;
 
@@ -21,9 +22,12 @@ public class Tracker {
     }
 
     public boolean replace(String id, Item item) {
-        for (int i = 0; i <= position; i++) {
+        for (int i = 0; i < position; i++) {
             if (this.items[i].getId().equals(id)) {
-                items[i] = item;
+                items[i].setId(id);
+                items[i].setName(item.getName());
+                items[i].setDesc(item.getDesc());
+                items[i].setTime(item.getTime());
                 return true;
             }
         }
@@ -35,11 +39,6 @@ public class Tracker {
         for (int i = 0; i < position; i++) {
             if (this.items[i].getId().equals(id)) {
                 System.arraycopy(this.items, i + 1, tmp, i, position - i - 1);
-                break;
-            }
-        }
-        for (int i = 0; i < tmp.length; i++) {
-            if (tmp[i] != null) {
                 System.arraycopy(tmp, i, this.items, i, position - i - 1);
                 position--;
                 return true;
@@ -49,9 +48,7 @@ public class Tracker {
     }
 
     public Item[] findAll() {
-        Item[] tmp = new Item[position];
-        System.arraycopy(this.items, 0, tmp, 0, position);
-        return tmp;
+        return Arrays.copyOf(this.items, position);
     }
 
     public Item[] findByName(String key) {
