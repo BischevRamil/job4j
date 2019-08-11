@@ -31,7 +31,7 @@ public class StartUI {
     /**
      * Основой цикл программы.
      */
-    public void init() {
+    private void init() {
         boolean exit = false;
         while (!exit) {
             this.showMenu();
@@ -76,25 +76,25 @@ public class StartUI {
 
     private void editItems() {
         System.out.println("-------------------Редактирование заявки------------------------------");
-        String ID = this.input.ask("Введите ID заявки :");
+        String id = this.input.ask("Введите ID заявки :");
         String name = this.input.ask("Введите новое имя заявки :");
         String desc = this.input.ask("Введите новое описание заявки :");
         Item item = new Item(name, desc, 125L);
-        this.tracker.replace(ID, item);
-        System.out.println("------------ Новая заявка с ID : " + ID + "-----------");
+        this.tracker.replace(id, item);
+        System.out.println("------------ Новая заявка с ID : " + id + "-----------");
     }
 
     private void delItem() {
         System.out.println("---------------------Удаление заявки------------------------------------");
-        String ID = this.input.ask("Введите ID заявки которую нужно удалить :");
-        this.tracker.delete(ID);
-        System.out.println("Заявка с ID :" + ID + "удалена");
+        String id = this.input.ask("Введите ID заявки которую нужно удалить :");
+        this.tracker.delete(id);
+        System.out.println("Заявка с ID :" + id + "удалена");
     }
 
     private void findByIdItem() {
         System.out.println("---------------------Поиск заявки по ID------------------------------------");
-        String ID = this.input.ask("Введите ID заявки, которую нужно найти");
-        Item item = this.tracker.findById(ID);
+        String id = this.input.ask("Введите ID заявки, которую нужно найти");
+        Item item = this.tracker.findById(id);
         System.out.println(item);
     }
 
@@ -102,7 +102,7 @@ public class StartUI {
         System.out.println("---------------------Поиск заявок по имени-----------------------------------");
         String name = this.input.ask("Введите имя заявки: ");
         Item[] items = this.tracker.findByName(name);
-        for (int i = 0; i < items.length; i++){
+        for (int i = 0; i < items.length; i++) {
             System.out.println(items[i].getId() + " " + items[i].getName() + " " + items[i].getDesc());
         }
     }
