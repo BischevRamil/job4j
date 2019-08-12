@@ -52,14 +52,14 @@ public class Tracker {
     }
 
     public Item[] findByName(String key) {
-        ArrayList<Item> tmp = new ArrayList<Item>();
+        Item[] tmp = new Item[position];
+        int j = 0;
         for (int i = 0; i < position; i++) {
             if (this.items[i].getName().equals(key)) {
-                tmp.add(items[i]);
+                System.arraycopy(this.items, i, tmp, j++, 1);
             }
         }
-        Item[] array = tmp.toArray(new Item[0]);
-        return array;
+        return Arrays.copyOf(tmp, j);
     }
 
     public Item findById(String id) {
