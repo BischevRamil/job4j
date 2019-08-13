@@ -1,10 +1,31 @@
 package ru.job4j.tracker;
 
+import org.hamcrest.core.Is;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
 public class StartUITest {
+    // поле содержит дефолтный вывод в консоль.
+    private final PrintStream stdout = System.out;
+    // буфер для результата.
+    private final ByteArrayOutputStream out = new ByteArrayOutputStream();
+
+    @Before
+    public void loadOutput() {
+        System.out.println("execute before method");
+        System.setOut(new PrintStream(this.out));
+    }
+
+    @After
+    public void backOutput() {
+        System.setOut(this.stdout);
+        System.out.println("execute after method");
+    }
 
     @Test
     public void whenUserAddItemThenTrackerHasNewItemWithSameName() {
@@ -30,5 +51,116 @@ public class StartUITest {
         Input input = new StubInput(new String[]{"3", item.getId(), "6"});
         new StartUI(input, tracker).init();
         assertThat(tracker.delete(item.getId()), is(false));
+    }
+
+    @Test
+    public void whenFindAllThenTrackerShowAll() {
+        Tracker tracker = new Tracker();
+        Item item1 = tracker.add(new Item("test name1", "desc1"));
+        Item item2 = tracker.add(new Item("test name2", "desc2"));
+        Item item3 = tracker.add(new Item("test name3", "desc3"));
+        Input input = new StubInput(new String[]{"1", "6"});
+        new StartUI(input, tracker).init();
+        assertThat(
+                new String(out.toByteArray()),
+                Is.is(
+                        new StringBuilder()
+                                .append("Меню.\n")
+                                .append("0. Добавить заявку\n")
+                                .append("1. Показать все заявки\n")
+                                .append("2. Редактирвать заявку\n")
+                                .append("3. Удалить заявку\n")
+                                .append("4. Найти по ID\n")
+                                .append("5. Найти по имени\n")
+                                .append("6. Выход\n")
+                                .append("-----------------Показать все заявки:---------------------\n")
+                                .append(item1.getId() + " test name1 desc1\n")
+                                .append(item2.getId() + " test name2 desc2\n")
+                                .append(item3.getId() + " test name3 desc3\n")
+                                .append("Меню.\n")
+                                .append("0. Добавить заявку\n")
+                                .append("1. Показать все заявки\n")
+                                .append("2. Редактирвать заявку\n")
+                                .append("3. Удалить заявку\n")
+                                .append("4. Найти по ID\n")
+                                .append("5. Найти по имени\n")
+                                .append("6. Выход")
+                                .append(System.lineSeparator())
+                                .toString()
+                )
+        );
+    }
+
+    @Test
+    public void whenFindByIDThenTrackerItem() {
+        Tracker tracker = new Tracker();
+        Item item1 = tracker.add(new Item("test name1", "desc1"));
+        Item item2 = tracker.add(new Item("test name2", "desc2"));
+        Item item3 = tracker.add(new Item("test name3", "desc3"));
+        Input input = new StubInput(new String[]{"4", item1.getId(), "6"});
+        new StartUI(input, tracker).init();
+        assertThat(
+                new String(out.toByteArray()),
+                Is.is(
+                        new StringBuilder()
+                                .append("Меню.\n")
+                                .append("0. Добавить заявку\n")
+                                .append("1. Показать все заявки\n")
+                                .append("2. Редактирвать заявку\n")
+                                .append("3. Удалить заявку\n")
+                                .append("4. Найти по ID\n")
+                                .append("5. Найти по имени\n")
+                                .append("6. Выход\n")
+                                .append("---------------------Поиск заявки по ID------------------------------------\n")
+                                .append(item1.getId() + " test name1 desc1\n")
+                                .append("Меню.\n")
+                                .append("0. Добавить заявку\n")
+                                .append("1. Показать все заявки\n")
+                                .append("2. Редактирвать заявку\n")
+                                .append("3. Удалить заявку\n")
+                                .append("4. Найти по ID\n")
+                                .append("5. Найти по имени\n")
+                                .append("6. Выход")
+                                .append(System.lineSeparator())
+                                .toString()
+                )
+        );
+    }
+
+    @Test
+    public void whenFindByNameThenTrackerItem() {
+        Tracker tracker = new Tracker();
+        Item item1 = tracker.add(new Item("test name1", "desc1"));
+        Item item2 = tracker.add(new Item("test name3", "desc2"));
+        Item item3 = tracker.add(new Item("test name3", "desc3"));
+        Input input = new StubInput(new String[]{"5", "test name3", "6"});
+        new StartUI(input, tracker).init();
+        assertThat(
+                new String(out.toByteArray()),
+                Is.is(
+                        new StringBuilder()
+                                .append("Меню.\n")
+                                .append("0. Добавить заявку\n")
+                                .append("1. Показать все заявки\n")
+                                .append("2. Редактирвать заявку\n")
+                                .append("3. Удалить заявку\n")
+                                .append("4. Найти по ID\n")
+                                .append("5. Найти по имени\n")
+                                .append("6. Выход\n")
+                                .append("---------------------Поиск заявок по имени-----------------------------------\n")
+                                .append(item2.getId() + " test name3 desc2\n")
+                                .append(item3.getId() + " test name3 desc3\n")
+                                .append("Меню.\n")
+                                .append("0. Добавить заявку\n")
+                                .append("1. Показать все заявки\n")
+                                .append("2. Редактирвать заявку\n")
+                                .append("3. Удалить заявку\n")
+                                .append("4. Найти по ID\n")
+                                .append("5. Найти по имени\n")
+                                .append("6. Выход")
+                                .append(System.lineSeparator())
+                                .toString()
+                )
+        );
     }
 }
