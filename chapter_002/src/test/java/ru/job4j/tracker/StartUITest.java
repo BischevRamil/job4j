@@ -14,6 +14,16 @@ public class StartUITest {
     private final PrintStream stdout = System.out;
     // буфер для результата.
     private final ByteArrayOutputStream out = new ByteArrayOutputStream();
+    private final String menu = new StringBuilder()
+                                .append("Меню.\n")
+                                .append("0. Добавить заявку\n")
+                                .append("1. Показать все заявки\n")
+                                .append("2. Редактирвать заявку\n")
+                                .append("3. Удалить заявку\n")
+                                .append("4. Найти по ID\n")
+                                .append("5. Найти по имени\n")
+                                .append("6. Выход\n")
+                                .toString();
 
     @Before
     public void loadOutput() {
@@ -65,27 +75,12 @@ public class StartUITest {
                 new String(out.toByteArray()),
                 Is.is(
                         new StringBuilder()
-                                .append("Меню.\n")
-                                .append("0. Добавить заявку\n")
-                                .append("1. Показать все заявки\n")
-                                .append("2. Редактирвать заявку\n")
-                                .append("3. Удалить заявку\n")
-                                .append("4. Найти по ID\n")
-                                .append("5. Найти по имени\n")
-                                .append("6. Выход\n")
+                                .append(menu)
                                 .append("-----------------Показать все заявки:---------------------\n")
                                 .append(item1.getId() + " test name1 desc1\n")
                                 .append(item2.getId() + " test name2 desc2\n")
                                 .append(item3.getId() + " test name3 desc3\n")
-                                .append("Меню.\n")
-                                .append("0. Добавить заявку\n")
-                                .append("1. Показать все заявки\n")
-                                .append("2. Редактирвать заявку\n")
-                                .append("3. Удалить заявку\n")
-                                .append("4. Найти по ID\n")
-                                .append("5. Найти по имени\n")
-                                .append("6. Выход")
-                                .append(System.lineSeparator())
+                                .append(menu)
                                 .toString()
                 )
         );
@@ -103,25 +98,10 @@ public class StartUITest {
                 new String(out.toByteArray()),
                 Is.is(
                         new StringBuilder()
-                                .append("Меню.\n")
-                                .append("0. Добавить заявку\n")
-                                .append("1. Показать все заявки\n")
-                                .append("2. Редактирвать заявку\n")
-                                .append("3. Удалить заявку\n")
-                                .append("4. Найти по ID\n")
-                                .append("5. Найти по имени\n")
-                                .append("6. Выход\n")
+                                .append(menu)
                                 .append("---------------------Поиск заявки по ID------------------------------------\n")
                                 .append(item1.getId() + " test name1 desc1\n")
-                                .append("Меню.\n")
-                                .append("0. Добавить заявку\n")
-                                .append("1. Показать все заявки\n")
-                                .append("2. Редактирвать заявку\n")
-                                .append("3. Удалить заявку\n")
-                                .append("4. Найти по ID\n")
-                                .append("5. Найти по имени\n")
-                                .append("6. Выход")
-                                .append(System.lineSeparator())
+                                .append(menu)
                                 .toString()
                 )
         );
@@ -139,26 +119,11 @@ public class StartUITest {
                 new String(out.toByteArray()),
                 Is.is(
                         new StringBuilder()
-                                .append("Меню.\n")
-                                .append("0. Добавить заявку\n")
-                                .append("1. Показать все заявки\n")
-                                .append("2. Редактирвать заявку\n")
-                                .append("3. Удалить заявку\n")
-                                .append("4. Найти по ID\n")
-                                .append("5. Найти по имени\n")
-                                .append("6. Выход\n")
+                                .append(menu)
                                 .append("---------------------Поиск заявок по имени-----------------------------------\n")
                                 .append(item2.getId() + " test name3 desc2\n")
                                 .append(item3.getId() + " test name3 desc3\n")
-                                .append("Меню.\n")
-                                .append("0. Добавить заявку\n")
-                                .append("1. Показать все заявки\n")
-                                .append("2. Редактирвать заявку\n")
-                                .append("3. Удалить заявку\n")
-                                .append("4. Найти по ID\n")
-                                .append("5. Найти по имени\n")
-                                .append("6. Выход")
-                                .append(System.lineSeparator())
+                                .append(menu)
                                 .toString()
                 )
         );
