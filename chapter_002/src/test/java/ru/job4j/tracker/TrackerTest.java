@@ -9,7 +9,7 @@ public class TrackerTest {
     public void whenAddNewItemThenTrackerHasSameItem() {
         Tracker tracker = new Tracker();
         long created = System.currentTimeMillis();
-        Item item = new Item("test1", "testDescription", created);
+        Item item = new Item("test1", "testDescription");
         tracker.add(item);
         Item result = tracker.findById(item.getId());
         assertThat(result.getName(), is(item.getName()));
@@ -18,11 +18,11 @@ public class TrackerTest {
     @Test
     public void whenReplaceNameThenReturnNewName() {
         Tracker tracker = new Tracker();
-        Item previous = new Item("test1", "testDescription", 123L);
+        Item previous = new Item("test1", "testDescription");
         // Добавляем заявку в трекер. Теперь в объект проинициализирован id.
         tracker.add(previous);
         // Создаем новую заявку.
-        Item next = new Item("test2", "testDescription2", 1234L);
+        Item next = new Item("test2", "testDescription2");
         // Проставляем старый id из previous, который был сгенерирован выше.
         next.setId(previous.getId());
         // Обновляем заявку в трекере.
@@ -34,11 +34,11 @@ public class TrackerTest {
     @Test
     public void whenDeleteIdThenReturnTrue() {
         Tracker tracker = new Tracker();
-        Item first = new Item("test1", "Desc1", 123L);
+        Item first = new Item("test1", "Desc1");
         tracker.add(first);
-        Item second = new Item("test2", "Desc2", 124L);
+        Item second = new Item("test2", "Desc2");
         tracker.add(second);
-        Item third = new Item("test3", "Desc3", 125L);
+        Item third = new Item("test3", "Desc3");
         tracker.add(third);
         Boolean result = tracker.delete(second.getId());
         int pos = tracker.position;
@@ -49,11 +49,11 @@ public class TrackerTest {
     @Test
     public void whenNotDeleteIdThenReturnFalse() {
         Tracker tracker = new Tracker();
-        Item first = new Item("test1", "Desc1", 123L);
+        Item first = new Item("test1", "Desc1");
         tracker.add(first);
-        Item second = new Item("test2", "Desc2", 124L);
+        Item second = new Item("test2", "Desc2");
         tracker.add(second);
-        Item third = new Item("test3", "Desc3", 125L);
+        Item third = new Item("test3", "Desc3");
         tracker.add(third);
         Boolean result = tracker.delete("string");
         int pos = tracker.position;
@@ -64,11 +64,11 @@ public class TrackerTest {
     @Test
     public void findAllTest() {
         Tracker tracker = new Tracker();
-        Item first = new Item("test1", "Desc1", 123L);
+        Item first = new Item("test1", "Desc1");
         tracker.add(first);
-        Item second = new Item("test2", "Desc2", 124L);
+        Item second = new Item("test2", "Desc2");
         tracker.add(second);
-        Item third = new Item("test3", "Desc3", 125L);
+        Item third = new Item("test3", "Desc3");
         tracker.add(third);
         Item[] items = {first, second, third};
         Item[] result = tracker.findAll();
@@ -78,11 +78,11 @@ public class TrackerTest {
     @Test
     public void findByNameTest() {
         Tracker tracker = new Tracker();
-        Item first = new Item("test1", "Desc1", 123L);
+        Item first = new Item("test1", "Desc1");
         tracker.add(first);
-        Item second = new Item("test1", "Desc2", 124L);
+        Item second = new Item("test1", "Desc2");
         tracker.add(second);
-        Item third = new Item("test3", "Desc3", 125L);
+        Item third = new Item("test3", "Desc3");
         tracker.add(third);
         Item[] items = {first, second};
         Item[] result = tracker.findByName("test1");

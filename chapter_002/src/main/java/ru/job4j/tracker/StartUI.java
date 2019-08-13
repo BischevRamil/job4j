@@ -31,7 +31,7 @@ public class StartUI {
     /**
      * Основой цикл программы.
      */
-    private void init() {
+    public void init() {
         boolean exit = false;
         while (!exit) {
             this.showMenu();
@@ -61,7 +61,7 @@ public class StartUI {
         System.out.println("------------ Добавление новой заявки --------------");
         String name = this.input.ask("Введите имя заявки :");
         String desc = this.input.ask("Введите описание заявки :");
-        Item item = new Item(name, desc, 125L);
+        Item item = new Item(name, desc);
         this.tracker.add(item);
         System.out.println("------------ Новая заявка с getId : " + item.getId() + "-----------");
     }
@@ -79,7 +79,7 @@ public class StartUI {
         String id = this.input.ask("Введите ID заявки :");
         String name = this.input.ask("Введите новое имя заявки :");
         String desc = this.input.ask("Введите новое описание заявки :");
-        Item item = new Item(name, desc, 125L);
+        Item item = new Item(name, desc);
         boolean rsl = this.tracker.replace(id, item);
         if (rsl) {
             System.out.println("------------ Новая заявка с ID : " + id + "-----------");
