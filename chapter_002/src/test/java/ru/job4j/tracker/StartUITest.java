@@ -15,7 +15,6 @@ public class StartUITest {
     // буфер для результата.
     private final ByteArrayOutputStream out = new ByteArrayOutputStream();
     private final String menu = new StringBuilder()
-                                .append("Меню.\n")
                                 .append("0. Добавить заявку\n")
                                 .append("1. Показать все заявки\n")
                                 .append("2. Редактирвать заявку\n")
