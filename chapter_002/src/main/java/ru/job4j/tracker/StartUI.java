@@ -1,14 +1,12 @@
 package ru.job4j.tracker;
 
-public class StartUI {
-    /**
-     * Получение данных от пользователя.
-     */
-    private final Input input;
+import com.google.common.primitives.Ints;
 
-    /**
-     * Хранилище заявок.
-     */
+import java.util.ArrayList;
+import java.util.List;
+
+public class StartUI {
+    private final Input input;
     private final Tracker tracker;
 
     /**
@@ -26,17 +24,15 @@ public class StartUI {
      */
     public void init() {
         MenuTracker menu = new MenuTracker(this.input, this.tracker);
+        List<Integer> range = new ArrayList<>();
         menu.fillActions();
-        int q = 0;
+        for (int i = 0; i < menu.getActionsLength(); i++) {
+            range.add(i);
+        }
         do {
             menu.show();
-            q = Integer.parseInt(input.ask("Выберите действие: "));
-            if (q >=0 && q <= 6) {
-                menu.select(q);
-            } else {
-                System.out.println("Введите правильное значение операции");
-            }
-        } while (q != 6);
+            menu.select(input.ask("Выберите действие: ", Ints.toArray(range)));
+        } while (!"y".equals(this.input.ask("Выход?(y/n): ")));
     }
 
     /**
@@ -44,6 +40,6 @@ public class StartUI {
      * @param args
      */
     public static void main(String[] args) {
-        new StartUI(new ConsoleInput(), new Tracker()).init();
+        new StartUI(new ValidateInput(), new Tracker()).init();
     }
 }

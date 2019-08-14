@@ -21,7 +21,6 @@ public class StartUITest {
                                 .append("3. Удалить заявку\n")
                                 .append("4. Найти по ID\n")
                                 .append("5. Найти по имени\n")
-                                .append("6. Выход\n")
                                 .toString();
 
     @Before

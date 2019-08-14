@@ -47,7 +47,6 @@ public class MenuTracker {
         this.actions.add(new DeleteItem());
         this.actions.add(new FindByIdItem());
         this.actions.add(new FindByNameItem());
-        this.actions.add(new ExitProgram());
     }
 
     /**
@@ -213,23 +212,6 @@ public class MenuTracker {
         @Override
         public String info() {
             return "5. Найти по имени";
-        }
-    }
-
-    public class ExitProgram implements UserAction {
-        @Override
-        public int key() {
-            return 6;
-        }
-
-        @Override
-        public void execute(Input input, Tracker tracker) {
-
-        }
-
-        @Override
-        public String info() {
-            return "6. Выход";
         }
     }
 }
