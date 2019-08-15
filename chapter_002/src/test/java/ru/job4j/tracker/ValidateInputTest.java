@@ -37,4 +37,11 @@ public class ValidateInputTest {
         input.ask("Enter", new int[] {1});
         assertThat(this.mem.toString(), is(String.format("Введена не цифра%n")));
     }
+
+    @Test
+    public void whenUnRangeInput() {
+        ValidateInput input = new ValidateInput(new StubInput(new String[] {"7", "1"}));
+        input.ask("Enter", new int[] {1});
+        assertThat(this.mem.toString(), is(String.format("Необходимо выбрать пункт меню%n")));
+    }
 }
