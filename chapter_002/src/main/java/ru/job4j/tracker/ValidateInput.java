@@ -1,5 +1,6 @@
 package ru.job4j.tracker;
 
+
 public class ValidateInput implements Input {
     private final Input input;
 
@@ -26,6 +27,5 @@ public class ValidateInput implements Input {
             }
         } while (invalid);
         return value;
-
     }
 }
