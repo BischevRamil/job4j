@@ -1,12 +1,21 @@
 package ru.job4j.array;
 
-import java.util.Arrays;
-
+/**
+ * Класс объединения двух сортированных массивов, возвращает третий отсортированный массив
+ * @author Бишев Рамиль
+ * @version 1.0
+ * @since 15-08-2019
+ */
 public class ArraySort {
 
-
-    private static int[] merge(int[] left, int[] right) {
-        int[] result = new int[4];
+    /**
+     * Метод объединения двух сортированных массивов, возвращает третий отсортированный массив
+     * @param left первый сортированный массив
+     * @param right второй сортированный массив
+     * @return третий сортированный массив, состоящий из двух массивов
+     */
+    public static int[] merge(int[] left, int[] right) {
+        int[] result = new int[left.length + right.length];
         int j = 0;
         for (int i = 0; i < left.length; i++) {
             if (left[i] < right[i]) {
@@ -18,12 +27,5 @@ public class ArraySort {
             }
         }
         return result;
-    }
-
-    public static void main(String[] args) {
-        int[] a = new int[]{1, 3};
-        int[] b = new int[]{2, 4};
-        int[] result = merge(a, b);
-        System.out.println(Arrays.toString(result));
     }
 }
