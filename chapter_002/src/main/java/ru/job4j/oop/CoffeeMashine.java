@@ -46,6 +46,6 @@ public class CoffeeMashine {
     }
 
     public static void main(String[] args) {
-        System.out.println(Arrays.toString(changes(100, 33)));
+        System.out.println(Arrays.toString(changes(100, 22)));
     }
 }
