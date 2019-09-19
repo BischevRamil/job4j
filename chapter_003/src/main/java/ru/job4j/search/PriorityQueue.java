@@ -18,20 +18,16 @@ public class PriorityQueue {
         if (tasks.isEmpty()) {
             tasks.add(task);
         } else {
-            for (int i = 0; i < tasks.size(); i++) {
-                if (task.getPriority() <= tasks.get(i).getPriority()) {
-                    tasks.add(i, task);
-                    return;
+            int i = 0;
+            for (Task item:tasks) {
+                if (task.getPriority() > item.getPriority()) {
+                    i++;
+                } else {
+                    break;
                 }
             }
-            tasks.addLast(task);
+            tasks.add(i, task);
         }
-//        tasks.sort(new Comparator<Task>() {
-//            @Override
-//            public int compare(Task t1, Task t2) {
-//                return t1.getPriority() - t2.getPriority();
-//            }
-//        });
     }
 
 
