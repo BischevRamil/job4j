@@ -97,9 +97,9 @@ public class MenuTracker {
         @Override
         public void execute(Input input, Tracker tracker) {
             System.out.println("-----------------Показать все заявки:---------------------");
-            Item[] items = tracker.findAll();
-            for (int i = 0; i < items.length; i++) {
-                System.out.println(items[i].getId() + " " + items[i].getName() + " " + items[i].getDesc());
+            ArrayList<Item> items = tracker.findAll();
+            for (Item item:items) {
+                System.out.println(item.getId() + " " + item.getName() + " " + item.getDesc());
             }
         }
     }
@@ -170,7 +170,7 @@ public class MenuTracker {
         public void execute(Input input, Tracker tracker) {
             System.out.println("---------------------Поиск заявок по имени-----------------------------------");
             String name = input.ask("Введите имя заявки: ");
-            Item[] items = tracker.findByName(name);
+            ArrayList<Item> items = tracker.findByName(name);
             if (items != null) {
                 for (Item item : items) {
                     System.out.println(item.getId() + " " + item.getName() + " " + item.getDesc());

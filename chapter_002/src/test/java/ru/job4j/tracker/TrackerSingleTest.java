@@ -1,6 +1,10 @@
 package ru.job4j.tracker;
 
 import org.junit.Test;
+
+import java.util.Arrays;
+import java.util.List;
+
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
@@ -14,8 +18,8 @@ public class TrackerSingleTest {
         Item second = new Item("test2", "Desc2");
         foo.tracker.add(first);
         bar.tracker.add(second);
-        Item[] items = {first, second};
-        Item[] result = bar.tracker.findAll();
+        List<Item> items = Arrays.asList(first, second);
+        List<Item> result = bar.tracker.findAll();
         assertThat(items, is(result));
     }
 
@@ -27,8 +31,8 @@ public class TrackerSingleTest {
         Item second = new Item("test2", "Desc2");
         foo.tracker.add(first);
         bar.tracker.add(second);
-        Item[] items = {first, second};
-        Item[] result = bar.tracker.findAll();
+        List<Item> items = Arrays.asList(first, second);
+        List<Item> result = bar.tracker.findAll();
         assertThat(items, is(result));
     }
 
@@ -40,8 +44,8 @@ public class TrackerSingleTest {
         Item second = new Item("test2", "Desc2");
         foo.tracker.add(first);
         bar.tracker.add(second);
-        Item[] items = {first, second};
-        Item[] result = bar.tracker.findAll();
+        List<Item> items = Arrays.asList(first, second);
+        List<Item> result = bar.tracker.findAll();
         assertThat(items, is(result));
     }
 
@@ -53,8 +57,8 @@ public class TrackerSingleTest {
         Item second = new Item("test2", "Desc2");
         foo.tracker.add(first);
         bar.tracker.add(second);
-        Item[] items = {first, second};
-        Item[] result = bar.tracker.findAll();
+        List<Item> items = Arrays.asList(first, second);
+        List<Item> result = bar.tracker.findAll();
         assertThat(items, is(result));
     }
 }
