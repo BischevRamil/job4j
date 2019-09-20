@@ -46,9 +46,7 @@ public class TrackerTest {
         Item third = new Item("test3", "Desc3");
         tracker.add(third);
         Boolean result = tracker.delete(second.getId());
-        int pos = tracker.position;
         assertThat(result, is(true));
-        assertThat(pos, is(2));
     }
 
     @Test
@@ -61,9 +59,7 @@ public class TrackerTest {
         Item third = new Item("test3", "Desc3");
         tracker.add(third);
         Boolean result = tracker.delete("string");
-        int pos = tracker.position;
         assertThat(result, is(false));
-        assertThat(pos, is(3));
     }
 
     @Test
@@ -76,7 +72,7 @@ public class TrackerTest {
         Item third = new Item("test3", "Desc3");
         tracker.add(third);
         List<Item> items = Arrays.asList(first, second, third);
-        ArrayList<Item> result = tracker.findAll();
+        List<Item> result = tracker.findAll();
         assertThat(items, is(result));
     }
 

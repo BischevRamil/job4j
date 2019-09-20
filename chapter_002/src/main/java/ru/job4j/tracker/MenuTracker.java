@@ -97,7 +97,7 @@ public class MenuTracker {
         @Override
         public void execute(Input input, Tracker tracker) {
             System.out.println("-----------------Показать все заявки:---------------------");
-            ArrayList<Item> items = tracker.findAll();
+            List<Item> items = tracker.findAll();
             for (Item item:items) {
                 System.out.println(item.getId() + " " + item.getName() + " " + item.getDesc());
             }
