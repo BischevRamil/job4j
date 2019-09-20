@@ -32,4 +32,12 @@ public class User implements Comparable<User> {
     public int compareTo(User user) {
         return this.age - user.getAge();
     }
+
+    @Override
+    public String toString() {
+        return "User{"
+                + "age=" + age
+                + ", name='" + name + '\''
+                + '}';
+    }
 }

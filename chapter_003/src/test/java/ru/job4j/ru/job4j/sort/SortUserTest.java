@@ -6,6 +6,8 @@ import ru.job4j.sort.User;
 
 import java.util.List;
 import java.util.Set;
+import java.util.TreeSet;
+
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.*;
 
@@ -17,9 +19,29 @@ public class SortUserTest {
         User gogi = new User("gogi", 38);
         User alex = new User("alex", 26);
         List<User> users = List.of(petr, ivan, gogi, alex);
-        Set<User> expected = Set.of(ivan, alex, petr, gogi);
+        TreeSet<User> expected = new TreeSet<User>(users);
         assertThat(expected, is(new SortUser().sort(users)));
+    }
 
+    @Test
+    public void sortNameLengthTest() {
+        User petr = new User("petr22", 34);
+        User ivan = new User("ivan1", 20);
+        User gogi = new User("gogi4444", 38);
+        User alex = new User("alex333", 26);
+        List<User> users = List.of(petr, ivan, gogi, alex);
+        List<User> expected = List.of(ivan, petr, alex, gogi);
+        assertThat(expected, is(new SortUser().sortNameLength(users)));
+    }
 
+    @Test
+    public void sortByAllFieldsTest() {
+        User usr1 = new User("sergey", 25);
+        User usr2 = new User("ivan", 30);
+        User usr3 = new User("sergey", 20);
+        User usr4 = new User("ivan", 25);
+        List<User> users = List.of(usr1, usr2, usr3, usr4);
+        List<User> expected = List.of(usr4, usr2, usr3, usr1);
+        assertThat(expected, is(new SortUser().sortByAllFields(users)));
     }
 }
