@@ -9,11 +9,11 @@ import java.util.*;
  */
 public class SortUser {
 
-    public Set<User> sort (List<User> list) {
+    public Set<User> sort(List<User> list) {
         return new TreeSet<User>(list);
     }
 
-    public List<User> sortNameLength (List<User> list) {
+    public List<User> sortNameLength(List<User> list) {
         List<User> result = new ArrayList<>(list);
         result.sort(new Comparator<User>() {
             @Override
@@ -24,7 +24,7 @@ public class SortUser {
         return result;
     }
 
-    public List<User> sortByAllFields (List<User> list) {
+    public List<User> sortByAllFields(List<User> list) {
         List<User> result = new ArrayList<>(list);
         result.sort(new Comparator<User>() {
             @Override
