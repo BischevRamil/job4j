@@ -18,8 +18,8 @@ public class SortUserTest {
         User ivan = new User("ivan", 20);
         User gogi = new User("gogi", 38);
         User alex = new User("alex", 26);
+        List<User> expected = List.of(ivan, alex, petr, gogi);
         List<User> users = List.of(petr, ivan, gogi, alex);
-        TreeSet<User> expected = new TreeSet<User>(users);
         assertThat(expected, is(new SortUser().sort(users)));
     }
 
