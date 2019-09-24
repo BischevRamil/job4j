@@ -21,6 +21,7 @@ public class Tracker {
     public boolean replace(String id, Item item) {
             for (int i = 0; i < items.size(); i++) {
                 if (this.items.get(i).getId().equals(id)) {
+                    item.setId(id);
                     this.items.set(i, item);
                     return true;
                 }
@@ -29,11 +30,11 @@ public class Tracker {
     }
 
     public boolean delete(String id) {
-        Iterator<Item> ItemIterator = items.iterator();
-        while (ItemIterator.hasNext()) {
-            Item nextItem = ItemIterator.next();
+        Iterator<Item> itemIterator = items.iterator();
+        while (itemIterator.hasNext()) {
+            Item nextItem = itemIterator.next();
             if (nextItem.getId().equals(id)) {
-                ItemIterator.remove();
+                itemIterator.remove();
                 return true;
             }
         }
