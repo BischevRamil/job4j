@@ -4,6 +4,7 @@ import org.junit.Test;
 import ru.job4j.sort.SortUser;
 import ru.job4j.sort.User;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
@@ -18,9 +19,13 @@ public class SortUserTest {
         User ivan = new User("ivan", 20);
         User gogi = new User("gogi", 38);
         User alex = new User("alex", 26);
-        List<User> expected = List.of(ivan, alex, petr, gogi);
         List<User> users = List.of(petr, ivan, gogi, alex);
-        assertThat(expected, is(new SortUser().sort(users)));
+        Set<User> treeSet = new SortUser().sort(users);
+        Iterator<User> userIterator = treeSet.iterator();
+        assertThat(ivan, is(userIterator.next()));
+        assertThat(alex, is(userIterator.next()));
+        assertThat(petr, is(userIterator.next()));
+        assertThat(gogi, is(userIterator.next()));
     }
 
     @Test
