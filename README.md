@@ -1,3 +1,6 @@
+[![Build Status](https://travis-ci.org/BischevRamil/job4j.svg?branch=master)](https://travis-ci.org/BischevRamil/job4j)
+[![codecov](https://codecov.io/gh/BischevRamil/job4j/branch/master/graph/badge.svg)](https://codecov.io/gh/BischevRamil/job4j)
+
 # job4j
 
 Клонирование репозитория в папку темп
