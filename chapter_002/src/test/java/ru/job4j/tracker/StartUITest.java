@@ -6,14 +6,21 @@ import org.junit.Before;
 import org.junit.Test;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import java.util.function.Consumer;
+
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
 public class StartUITest {
     // поле содержит дефолтный вывод в консоль.
-    private final PrintStream stdout = System.out;
-    // буфер для результата.
     private final ByteArrayOutputStream out = new ByteArrayOutputStream();
+    final PrintStream stdout = new PrintStream(out);
+    private final Consumer<String> output = new Consumer<String>() {
+        @Override
+        public void accept(String s) {
+            stdout.println(s);
+        }
+    };
     private final String menu = new StringBuilder()
                                 .append("0 : Добавить заявку\n")
                                 .append("1 : Показать все заявки\n")
@@ -39,7 +46,7 @@ public class StartUITest {
     public void whenUserAddItemThenTrackerHasNewItemWithSameName() {
         Tracker tracker = new Tracker();     // создаём Tracker
         Input input = new StubInput(new String[]{"0", "test name", "desc", "y"});   //создаём StubInput с последовательностью действий
-        new StartUI(input, tracker).init();     //   создаём StartUI и вызываем метод init()
+        new StartUI(input, tracker, output).init();     //   создаём StartUI и вызываем метод init()
         assertThat(tracker.findByName("test name"), is(tracker.findByName("test name"))); // проверяем, что нулевой элемент массива в трекере содержит имя, введённое при эмуляции.
     }
 
@@ -48,7 +55,7 @@ public class StartUITest {
         Tracker tracker = new Tracker();                // создаём Tracker
         Item item = tracker.add(new Item("test name", "desc"));             //Напрямую добавляем заявку
         Input input = new StubInput(new String[]{"2", item.getId(), "test replace", "заменили заявку", "y"});    //создаём StubInput с последовательностью действий(производим замену заявки)
-        new StartUI(input, tracker).init();         // создаём StartUI и вызываем метод init()
+        new StartUI(input, tracker, output).init();         // создаём StartUI и вызываем метод init()
         assertThat(tracker.findById(item.getId()).getName(), is("test replace"));        // проверяем, что нулевой элемент массива в трекере содержит имя, введённое при эмуляции.
     }
 
@@ -57,7 +64,7 @@ public class StartUITest {
         Tracker tracker = new Tracker();
         Item item = tracker.add(new Item("test name", "desc"));
         Input input = new StubInput(new String[]{"3", item.getId(), "y"});
-        new StartUI(input, tracker).init();
+        new StartUI(input, tracker, output).init();
         assertThat(tracker.delete(item.getId()), is(false));
     }
 
@@ -68,7 +75,7 @@ public class StartUITest {
         Item item2 = tracker.add(new Item("test name2", "desc2"));
         Item item3 = tracker.add(new Item("test name3", "desc3"));
         Input input = new StubInput(new String[]{"1", "y"});
-        new StartUI(input, tracker).init();
+        new StartUI(input, tracker, output).init();
         assertThat(
                 new String(out.toByteArray()),
                 Is.is(
@@ -90,7 +97,7 @@ public class StartUITest {
         Item item2 = tracker.add(new Item("test name2", "desc2"));
         Item item3 = tracker.add(new Item("test name3", "desc3"));
         Input input = new StubInput(new String[]{"4", item1.getId(), "y"});
-        new StartUI(input, tracker).init();
+        new StartUI(input, tracker, output).init();
         assertThat(
                 new String(out.toByteArray()),
                 Is.is(
@@ -110,7 +117,7 @@ public class StartUITest {
         Item item2 = tracker.add(new Item("test name3", "desc2"));
         Item item3 = tracker.add(new Item("test name3", "desc3"));
         Input input = new StubInput(new String[]{"5", "test name3", "y"});
-        new StartUI(input, tracker).init();
+        new StartUI(input, tracker, output).init();
         assertThat(
                 new String(out.toByteArray()),
                 Is.is(
