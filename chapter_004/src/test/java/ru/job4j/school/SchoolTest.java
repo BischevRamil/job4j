@@ -2,10 +2,7 @@ package ru.job4j.school;
 
 import org.junit.Test;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
@@ -57,5 +54,14 @@ public class SchoolTest {
         expected.put(st8.getSecondName(), st8);
         expected.put(st9.getSecondName(), st9);
         assertThat(expected, is(this.school.convertInMap(studentList)));
+    }
+
+    @Test
+    public void levelOfTest() {
+        List<Student> actual = new ArrayList<>(studentList);
+        actual.add(1, null);
+        actual.add(8, null);
+        List<Student> expected = List.of(st9, st8, st7, st6);
+        assertThat(expected, is(this.school.levelOf(actual, 50)));
     }
 }

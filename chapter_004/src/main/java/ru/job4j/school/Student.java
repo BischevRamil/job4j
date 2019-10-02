@@ -1,5 +1,7 @@
 package ru.job4j.school;
 
+import java.util.Comparator;
+
 public class Student {
     String secondName;
     private int score;
@@ -15,5 +17,13 @@ public class Student {
 
     public String getSecondName() {
         return secondName;
+    }
+
+    @Override
+    public String toString() {
+        return "Student{"
+                + "Name=" + secondName
+                + ", score='" + score + '\''
+                + '}';
     }
 }
