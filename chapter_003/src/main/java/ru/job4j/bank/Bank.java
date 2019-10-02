@@ -1,6 +1,8 @@
 package ru.job4j.bank;
 
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * @author ramil bishev
@@ -15,35 +17,36 @@ public class Bank {
     }
 
     public void deleteUser(User user) {
-        if (this.userAccounts.containsKey(user)) {
-            this.userAccounts.remove(user);
-        }
+        Map<User, ArrayList<Account>> collect = userAccounts.entrySet()
+                .stream().filter(a -> a.getKey() != user)
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+        userAccounts.clear();
+        userAccounts.putAll(collect);
     }
 
     public void addAccountToUser(String passport, Account account) {
-        for (User user:userAccounts.keySet()) {
-            if (user.getPassport().equals(passport)) {
-                this.userAccounts.get(user).add(account);
-            }
-        }
+        userAccounts.entrySet()
+                .stream()
+                .filter(a -> passport.equals(a.getKey().getPassport()))
+                .findFirst()
+                .ifPresent(a -> a.getValue().add(account));
     }
 
     public void deleteAccountFromUser(String passport, Account account) {
-        for (User user:userAccounts.keySet()) {
-            if (user.getPassport().equals(passport) && userAccounts.get(user).contains(account)) {
-                this.userAccounts.get(user).remove(account);
-            }
-        }
+        userAccounts.entrySet()
+                .stream()
+                .filter(a -> passport.equals(a.getKey().getPassport()))
+                .findFirst()
+                .ifPresent(a -> a.getValue().remove(account));
     }
 
     public List<Account> getUserAccounts(String passport) {
-        List<Account> result = new ArrayList<>();
-        for (User user:userAccounts.keySet()) {
-            if (user.getPassport().equals(passport)) {
-                result.addAll(userAccounts.get(user));
-            }
-        }
-        return result;
+        return userAccounts.entrySet()
+                .stream()
+                .filter(a -> passport.equals(a.getKey().getPassport()))
+                .findFirst()
+                .map(Map.Entry::getValue)
+                .get();
     }
 
     public boolean transferMoney(String srcPassport, String srcRequisite, String destPassport, String destRequisite, double amount) {
@@ -53,25 +56,17 @@ public class Bank {
     }
 
     public Account getAccount(String passport, String requisites) {
-        Account result = null;
-        for (User user:userAccounts.keySet()) {
-            if (user.getPassport().equals(passport)) {
-                for (Account account:userAccounts.get(user)) {
-                    if (account.getRequisites().equals(requisites)) {
-                        result = account;
-                    }
-                }
-            }
-        }
-        return result;
+        return getUserAccounts(passport)
+                .stream()
+                .filter(a -> a.getRequisites().equals(requisites))
+                .findFirst()
+                .get();
     }
 
     public List<User> getUsers() {
-        List<User> result = new ArrayList<>();
-        for (User user:userAccounts.keySet()) {
-            result.add(user);
-        }
-        return result;
+        return userAccounts.keySet()
+                .stream()
+                .collect(Collectors.toList());
     }
 
 }
