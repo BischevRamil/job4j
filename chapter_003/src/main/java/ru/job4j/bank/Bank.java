@@ -46,6 +46,7 @@ public class Bank {
                 .filter(a -> passport.equals(a.getKey().getPassport()))
                 .findFirst()
                 .map(Map.Entry::getValue)
+                .filter(Objects::nonNull)
                 .get();
     }
 
@@ -60,6 +61,7 @@ public class Bank {
                 .stream()
                 .filter(a -> a.getRequisites().equals(requisites))
                 .findFirst()
+                .filter(Objects::nonNull)
                 .get();
     }
 
