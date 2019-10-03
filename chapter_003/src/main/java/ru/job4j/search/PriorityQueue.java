@@ -14,12 +14,11 @@ public class PriorityQueue {
      * @param task задача
      */
     public void put(Task task) {
-        //TODO добавить вставку в связанный список.
         if (tasks.isEmpty()) {
             tasks.add(task);
         } else {
-            int i = 0;
-            for (Task item:tasks) {
+            var i = 0;
+            for (var item:tasks) {
                 if (task.getPriority() > item.getPriority()) {
                     i++;
                 } else {
