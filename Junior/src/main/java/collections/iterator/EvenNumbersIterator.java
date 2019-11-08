@@ -2,11 +2,10 @@ package collections.iterator;
 
 /**
  * @author Bischev Ramil
- * @since 2019-11-07
+ * @since 2019-11-08
  * 	5.1.2. Создать итератор четные числа[#196565]
  */
 
-import java.util.Arrays;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
@@ -16,26 +15,36 @@ public class EvenNumbersIterator implements Iterator {
 
     public EvenNumbersIterator(final int[] values) {
         this.values = values;
+        findEven(values);
     }
 
     @Override
     public boolean hasNext() {
-        int[] evenArray = evenNumbers(values);
-        return idx < evenArray.length;
+        return idx != -1;
     }
 
     @Override
     public Object next() {
-        int[] evenArray = evenNumbers(values);
+
         if (!hasNext()) {
             throw new NoSuchElementException();
         }
-        return evenArray[idx++];
+        Object result = values[idx++];
+        findEven(values);
+        return result;
     }
 
-    private int[] evenNumbers(int[] array) {
-        return Arrays.stream(array)
-                .filter(a -> a % 2 == 0)
-                .toArray();
+    private void findEven(int[] array) {
+        boolean even = false;
+        for (int i = idx; i < array.length; i++) {
+            if (array[i] % 2 == 0) {
+                idx = i;
+                even = true;
+                break;
+            }
+        }
+        if (!even) {
+            idx = -1;
+        }
     }
 }
