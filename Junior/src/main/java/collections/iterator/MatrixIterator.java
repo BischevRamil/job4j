@@ -2,15 +2,15 @@ package collections.iterator;
 
 /**
  * @author Bischev Ramil
- * @since 2019-11-08
+ * @since 2019-11-11
  * 5.1.1. Итератор для двухмерного массива int[][][#196568]
  */
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 public class MatrixIterator implements Iterator {
     private final int[][] values;
-    private int idx = 0;
     private int row = 0;
     private int col = 0;
 
@@ -25,6 +25,9 @@ public class MatrixIterator implements Iterator {
 
     @Override
     public Object next() {
+        if (!hasNext()) {
+            throw new NoSuchElementException();
+        }
         int result = values[row][col++];
         if (col == values[row].length) {
             col = 0;
