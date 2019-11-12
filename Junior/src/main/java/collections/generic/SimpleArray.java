@@ -25,20 +25,21 @@ public class SimpleArray<T> implements Iterable<T> {
     }
 
     T get(int index) {
-        if (idx >= this.values.length) {
+        if (index >= this.idx) {
             throw new ArrayIndexOutOfBoundsException();
         }
         return this.values[index];
     }
 
-    void set(int index, T model) {
-        if (idx >= this.values.length) {
-            throw new ArrayIndexOutOfBoundsException();
+    boolean set(int index, T model) {
+        if (index > this.idx) {
+            throw new IllegalArgumentException();
         }
         this.values[index] = model;
+        return true;
     }
 
-    void remove(int index) {
+    boolean remove(int index) {
         if (idx >= this.values.length) {
             throw new ArrayIndexOutOfBoundsException();
         }
@@ -46,6 +47,7 @@ public class SimpleArray<T> implements Iterable<T> {
             this.values[i] = this.values[i + 1];
         }
         idx--;
+        return true;
     }
 
     public int lenght() {
@@ -60,7 +62,7 @@ public class SimpleArray<T> implements Iterable<T> {
 
             @Override
             public boolean hasNext() {
-                return currentIndex < idx && values[currentIndex] != null;
+                return currentIndex < idx;
             }
 
             @Override
