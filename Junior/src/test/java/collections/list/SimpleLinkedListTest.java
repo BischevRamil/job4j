@@ -2,6 +2,9 @@ package collections.list;
 
 import org.junit.Test;
 import org.junit.Before;
+
+import java.util.NoSuchElementException;
+
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
@@ -31,5 +34,13 @@ public class SimpleLinkedListTest {
     public void deleteFirstElement() {
         assertThat(list.delete(), is(3));
         assertThat(list.getSize(), is(2));
+    }
+
+    @Test(expected = NoSuchElementException.class)
+    public void whenDeleteNullElementShouldException() {
+        list.delete();
+        list.delete();
+        list.delete();
+        list.delete();
     }
 }

@@ -31,10 +31,9 @@ public class SimpleLinkedList<E> {
             result = this.first.data;
             this.first = this.first.next;
             size--;
-        } else {
-            throw new NoSuchElementException();
+            return result;
         }
-        return result;
+        throw new NoSuchElementException();
     }
 
     /**
