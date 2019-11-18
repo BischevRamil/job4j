@@ -37,7 +37,7 @@ public class DynSimpleArrayList<T> implements Iterable<T> {
     }
 
     private T[] grow() {
-        return this.values = Arrays.copyOf(this.values, this.values.length * 2);
+        return Arrays.copyOf(this.values, this.values.length * 2);
     }
 
     @Override
