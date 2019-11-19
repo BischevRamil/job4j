@@ -52,6 +52,7 @@ public class DynSimpleLinkedList<E> implements Iterable{
     public Iterator<E> iterator() {
         return new Iterator<E>() {
             private int expectedModCount = modCount;
+            private Node<E> current = first;
             private int currentIndex = 0;
 
             @Override
@@ -68,14 +69,10 @@ public class DynSimpleLinkedList<E> implements Iterable{
                 if (!hasNext()) {
                     throw new NoSuchElementException();
                 }
-                Node<E> tempNode = first;
-                int i = 0;
-                while (i != currentIndex) {
-                    tempNode = tempNode.next;
-                    i++;
-                }
+                E result = current.data;
+                current = current.next;
                 currentIndex++;
-                return tempNode.data;
+                return result;
             }
         };
     }
