@@ -8,11 +8,7 @@ package collections.list;
  */
 
 public class SimpleStack<E> {
-    private SimpleLinkedList<E> list;
-
-    public SimpleStack() {
-        this.list = new SimpleLinkedList<>();
-    }
+    private SimpleLinkedList<E> list = new SimpleLinkedList<>();
 
     void push(E value) {
         this.list.add(value);
