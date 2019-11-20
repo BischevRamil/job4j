@@ -7,16 +7,22 @@ package collections.list;
  * @param <E>
  */
 
-public class SimpleStack<E> extends SimpleLinkedList {
+public class SimpleStack<E> {
+    private SimpleLinkedList<E> list;
 
     public SimpleStack() {
+        this.list = new SimpleLinkedList<>();
     }
 
     void push(E value) {
-        this.add(value);
+        this.list.add(value);
     }
 
     E poll() {
-        return (E) this.delete();
+        return (E) this.list.delete();
+    }
+
+    int getSize() {
+        return this.list.getSize();
     }
 }
