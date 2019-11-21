@@ -9,26 +9,19 @@ package collections.list;
 
 public class SimpleQueue<E> {
 
-    private SimpleStack<E> stackPush = new SimpleStack<E>();
-    private SimpleStack<E> stackPoll = new SimpleStack<E>();
+    private SimpleStack<E> first = new SimpleStack<>();
+    private SimpleStack<E> second = new SimpleStack<>();
 
     public E poll() {
-        if (this.stackPush.getSize() != 0) {
-            overflow(stackPush, stackPoll);
+        if (this.second.getSize() == 0) {
+            while (this.first.getSize() != 0) {
+                this.second.push(this.first.poll());
+            }
         }
-        return stackPoll.poll();
+        return this.second.poll();
     }
 
     public void push(E value) {
-        if (this.stackPoll.getSize() != 0) {
-            overflow(stackPoll, stackPush);
-        }
-        stackPush.push(value);
-    }
-
-    private void overflow(SimpleStack<E> from, SimpleStack<E> to) {
-        while (from.getSize() != 0) {
-            to.push(from.poll());
-        }
+        this.first.push(value);
     }
 }
