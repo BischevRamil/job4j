@@ -10,12 +10,12 @@ import java.util.NoSuchElementException;
  * Реализация односвязного списка и итератора с fast-fail проверкой.
  * @param <E>
  */
-public class DynSimpleLinkedList<E> implements Iterable{
+public class DynSimpleLinkedList<E> implements Iterable {
     private int size;
     private int modCount = 0;
     private Node<E> first;
 
-    public void DynSimpleLinkedList() {
+    public DynSimpleLinkedList() {
         this.size = 0;
     }
 
@@ -71,7 +71,7 @@ public class DynSimpleLinkedList<E> implements Iterable{
         int count = 0;
         boolean rst = false;
         Node<E> tempNode = first;
-        while(tempNode.next != null) {
+        while (tempNode.next != null) {
             tempNode = tempNode.next;
             count++;
             if (count > this.size) {
@@ -91,15 +91,17 @@ public class DynSimpleLinkedList<E> implements Iterable{
 
             @Override
             public boolean hasNext() {
-                if (modCount != expectedModCount)
+                if (modCount != expectedModCount) {
                     throw new ConcurrentModificationException();
+                }
                 return currentIndex < size;
             }
 
             @Override
             public E next() {
-                if (modCount != expectedModCount)
+                if (modCount != expectedModCount) {
                     throw new ConcurrentModificationException();
+                }
                 if (!hasNext()) {
                     throw new NoSuchElementException();
                 }

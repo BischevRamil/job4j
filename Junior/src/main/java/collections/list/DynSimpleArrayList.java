@@ -12,16 +12,16 @@ import java.util.NoSuchElementException;
  * @param <T>
  */
 public class DynSimpleArrayList<T> implements Iterable<T> {
-    private T[] values;
+    public T[] values;
     private static final int DEFAULT_CAPACITY = 10;
     private int idx = 0;
     private int modCount = 0;
 
-    DynSimpleArrayList() {
+    public DynSimpleArrayList() {
         this.values = (T[]) new Object[DEFAULT_CAPACITY];
     }
 
-    void add(T element) {
+    public void add(T element) {
         this.modCount++;
         if (idx == this.values.length) {
             this.values = this.grow();
@@ -40,6 +40,10 @@ public class DynSimpleArrayList<T> implements Iterable<T> {
         return Arrays.copyOf(this.values, this.values.length * 2);
     }
 
+    public int size() {
+        return this.idx;
+    }
+
     @Override
     public Iterator<T> iterator() {
         return new Iterator<T>() {
@@ -48,15 +52,17 @@ public class DynSimpleArrayList<T> implements Iterable<T> {
 
             @Override
             public boolean hasNext() {
-                if (modCount != expectedModCount)
+                if (modCount != expectedModCount) {
                     throw new ConcurrentModificationException();
+                }
                 return currentIndex < idx;
             }
 
             @Override
             public T next() {
-                if (modCount != expectedModCount)
+                if (modCount != expectedModCount) {
                     throw new ConcurrentModificationException();
+                }
                 if (!hasNext()) {
                     throw new NoSuchElementException();
                 }
