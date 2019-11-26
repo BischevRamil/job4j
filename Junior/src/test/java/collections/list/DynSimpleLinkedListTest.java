@@ -50,4 +50,24 @@ public class DynSimpleLinkedListTest {
         MatcherAssert.assertThat(it.next(), is(3));
         MatcherAssert.assertThat(it.hasNext(), is(false));
     }
+
+    @Test
+    public void cycleTest() {
+        DynSimpleLinkedList.Node first = new DynSimpleLinkedList.Node(1);
+        DynSimpleLinkedList.Node second = new DynSimpleLinkedList.Node(2);
+        DynSimpleLinkedList.Node third = new DynSimpleLinkedList.Node(3);
+        DynSimpleLinkedList.Node fourth = new DynSimpleLinkedList.Node(4);
+
+        list.addNode(first);
+        list.addNode(second);
+        list.addNode(third);
+        list.addNode(fourth);
+
+        first.next = second;
+        second.next = third;
+        third.next = fourth;
+        fourth.next = first;
+
+        assertThat(list.hasCycle(first), is(true));
+    }
 }

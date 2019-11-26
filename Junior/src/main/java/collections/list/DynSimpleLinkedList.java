@@ -37,6 +37,20 @@ public class DynSimpleLinkedList<E> implements Iterable{
         }
     }
 
+    public void addNode(Node<E> node) {
+        this.modCount++;
+        this.size++;
+        if (this.first == null) {
+            this.first = node;
+        } else {
+            Node<E> tempNode = this.first;
+            while (tempNode.next != null) {
+                tempNode = tempNode.next;
+            }
+            tempNode.next = node;
+        }
+    }
+
     public E get(int index) {
         if (index >= this.size) {
             throw new ArrayIndexOutOfBoundsException();
@@ -46,6 +60,26 @@ public class DynSimpleLinkedList<E> implements Iterable{
             result = result.next;
         }
         return result.data;
+    }
+
+    /**
+     * Метод определяет есть ли зацикленность в односвязном списке.
+     * @param first
+     * @return
+     */
+    boolean hasCycle(Node<E> first) {
+        int count = 0;
+        boolean rst = false;
+        Node<E> tempNode = first;
+        while(tempNode.next != null) {
+            tempNode = tempNode.next;
+            count++;
+            if (count > this.size) {
+                rst = true;
+                break;
+            }
+        }
+        return rst;
     }
 
     @Override
@@ -77,7 +111,7 @@ public class DynSimpleLinkedList<E> implements Iterable{
         };
     }
 
-    private static class Node<E> {
+    static class Node<E> {
         E data;
         Node<E> next;
 
