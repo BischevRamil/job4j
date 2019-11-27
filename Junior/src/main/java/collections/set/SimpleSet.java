@@ -1,10 +1,7 @@
 package collections.set;
 
 import collections.list.DynSimpleArrayList;
-
-import java.util.ConcurrentModificationException;
 import java.util.Iterator;
-import java.util.NoSuchElementException;
 
 /**
  * @author Bischev Ramil
@@ -13,10 +10,9 @@ import java.util.NoSuchElementException;
  * @param <T>
  */
 
-public class SimpleSet<T> implements Iterable<T> {
+public class SimpleSet<T>{
 
     DynSimpleArrayList<T> arrayList = new DynSimpleArrayList<>();
-    private int modCount = 0;
 
     void add(T data) {
         for (T element : arrayList) {
@@ -24,7 +20,6 @@ public class SimpleSet<T> implements Iterable<T> {
                 return;
             }
         }
-        modCount++;
         arrayList.add(data);
     }
 
@@ -32,30 +27,7 @@ public class SimpleSet<T> implements Iterable<T> {
         return arrayList.size();
     }
 
-    @Override
     public Iterator<T> iterator() {
-        return new Iterator<T>() {
-            private int expectedModCount = modCount;
-            private int currentIndex = 0;
-
-            @Override
-            public boolean hasNext() {
-                if (modCount != expectedModCount) {
-                    throw new ConcurrentModificationException();
-                }
-                return currentIndex < size();
-            }
-
-            @Override
-            public T next() {
-                if (modCount != expectedModCount) {
-                    throw new ConcurrentModificationException();
-                }
-                if (!hasNext()) {
-                    throw new NoSuchElementException();
-                }
-                return arrayList.values[currentIndex++];
-            }
-        };
+        return arrayList.iterator();
     }
 }
