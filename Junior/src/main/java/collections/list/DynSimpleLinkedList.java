@@ -10,7 +10,7 @@ import java.util.NoSuchElementException;
  * Реализация односвязного списка и итератора с fast-fail проверкой.
  * @param <E>
  */
-public class DynSimpleLinkedList<E> implements Iterable {
+public class DynSimpleLinkedList<E> implements Iterable<E> {
     private int size;
     private int modCount = 0;
     private Node<E> first;
@@ -63,23 +63,28 @@ public class DynSimpleLinkedList<E> implements Iterable {
     }
 
     /**
-     * Метод определяет есть ли зацикленность в односвязном списке.
+     * Метод определяет есть ли зацикленность в односвязном списке. Алгоритм Флойда(Черепаха и Заяц).
      * @param first
      * @return
      */
     boolean hasCycle(Node<E> first) {
-        int count = 0;
-        boolean rst = false;
-        Node<E> tempNode = first;
-        while (tempNode.next != null) {
-            tempNode = tempNode.next;
-            count++;
-            if (count > this.size) {
-                rst = true;
-                break;
-            }
+        Node tortoise = first;
+        Node hare = first;
+
+        while (true) {
+            tortoise = tortoise.next;
+
+            if (hare.next != null)
+                hare = hare.next.next;
+            else
+                return false;
+
+            if ((tortoise == null) || (hare == null))
+                return false;
+
+            if (tortoise == hare)
+                return true;
         }
-        return rst;
     }
 
     @Override
