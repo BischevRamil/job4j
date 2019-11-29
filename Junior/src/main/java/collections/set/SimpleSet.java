@@ -10,7 +10,7 @@ import java.util.Iterator;
  * @param <T>
  */
 
-public class SimpleSet<T>{
+public class SimpleSet<T> {
 
     DynSimpleArrayList<T> arrayList = new DynSimpleArrayList<>();
 

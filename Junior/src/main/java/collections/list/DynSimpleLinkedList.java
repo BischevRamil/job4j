@@ -74,16 +74,17 @@ public class DynSimpleLinkedList<E> implements Iterable<E> {
         while (true) {
             tortoise = tortoise.next;
 
-            if (hare.next != null)
+            if (hare.next != null) {
                 hare = hare.next.next;
-            else
+            } else {
                 return false;
-
-            if ((tortoise == null) || (hare == null))
+            }
+            if ((tortoise == null) || (hare == null)) {
                 return false;
-
-            if (tortoise == hare)
+            }
+            if (tortoise == hare) {
                 return true;
+            }
         }
     }
 
