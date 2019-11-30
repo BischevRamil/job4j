@@ -68,24 +68,18 @@ public class DynSimpleLinkedList<E> implements Iterable<E> {
      * @return
      */
     boolean hasCycle(Node<E> first) {
+        boolean rst = false;
         Node tortoise = first;
         Node hare = first;
-
-        while (true) {
+        while(tortoise.next != null && hare.next.next != null) {
             tortoise = tortoise.next;
-
-            if (hare.next != null) {
-                hare = hare.next.next;
-            } else {
-                return false;
-            }
-            if ((tortoise == null) || (hare == null)) {
-                return false;
-            }
+            hare = hare.next.next;
             if (tortoise == hare) {
-                return true;
+                rst = true;
+                break;
             }
         }
+        return rst;
     }
 
     @Override
