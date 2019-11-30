@@ -16,7 +16,7 @@ public class SimpleSet<T> {
 
     void add(T data) {
         for (T element : arrayList) {
-            if (data == element) {
+            if (data.equals(element)) {
                 return;
             }
         }
