@@ -38,6 +38,18 @@ public class MySimpleTree<E extends Comparable> implements SimpleTree<E> {
         return rsl;
     }
 
+    public boolean isBinary() {
+        boolean rsl = true;
+        for (E element : this) {
+            Node<E> elementNode = findBy(element).get();
+            if (elementNode.leaves().size() > 2) {
+                rsl = false;
+                break;
+            }
+        }
+        return rsl;
+    }
+
     @Override
     public Optional<Node<E>> findBy(E value) {
         Optional<Node<E>> rsl = Optional.empty();
