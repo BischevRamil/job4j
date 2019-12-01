@@ -187,17 +187,4 @@ public class SimpleHashMap<K, V> implements Iterable<SimpleHashMap.Node<K, V>> {
             }
         }
     }
-
-//    public static void main(String[] args) {
-//        User user1 = new User("Bob", 2, new GregorianCalendar(2017, 0, 25));
-//        User user2 = new User("Bob", 2, new GregorianCalendar(2017, 0, 25));
-//        User user3 = new User("Bob", 2, new GregorianCalendar(2017, 0, 25));
-//
-//        Map<User, Integer> hashMap = new HashMap<>();
-//        hashMap.put(user1, 1);
-//        hashMap.put(user2, 2);
-//        hashMap.put(user3, 3);
-//
-//        System.out.println(hashMap);
-//    }
 }
