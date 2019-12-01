@@ -73,18 +73,10 @@ public class MySimpleTree<E extends Comparable> implements SimpleTree<E> {
         return new Iterator<E>() {
             private int expectedModCount = modCount;
             private int currentIndex = 0;
-            private Queue<Node<E>> stack1 = new LinkedList<>();
-            private Queue<Node<E>> stack2 = new LinkedList<>();
+            private Queue<Node<E>> nodeQueue = new LinkedList<>();
 
             {
-                stack1.offer(root);
-                while(!stack1.isEmpty()) {
-                    Node<E> el = stack1.poll();
-                    stack2.offer(el);
-                    for (Node<E> child : el.leaves()) {
-                        stack1.offer(child);
-                    }
-                }
+                nodeQueue.offer(root);
             }
 
             @Override
@@ -103,7 +95,11 @@ public class MySimpleTree<E extends Comparable> implements SimpleTree<E> {
                 if (!hasNext()) {
                     throw new NoSuchElementException();
                 }
-                E rsl = Objects.requireNonNull(stack2.poll()).value;
+                Node<E> el = nodeQueue.poll();
+                E rsl = el.value;
+                for (Node<E> child : el.leaves()) {
+                    nodeQueue.offer(child);
+                }
                 currentIndex++;
                 return rsl;
             }
