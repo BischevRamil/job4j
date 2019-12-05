@@ -19,13 +19,18 @@ public class AnalizeTest {
         list1.add(new Analize.User(1, "one"));
         list1.add(new Analize.User(2, "two"));
         list1.add(new Analize.User(3, "three"));
+        list1.add(new Analize.User(4, "four"));
+        list1.add(new Analize.User(5, "five"));
+        list1.add(new Analize.User(6, "six"));
 
         list2.add(new Analize.User(1, "one"));
         list2.add(new Analize.User(3, "threethree"));
-        list2.add(new Analize.User(4, "four"));
+        list2.add(new Analize.User(4, "fourfour"));
+        list2.add(new Analize.User(5, "five"));
+        list2.add(new Analize.User(7, "seven"));
 
-        assertThat(analize.diff(list1, list2).getChanged(), is(1));
+        assertThat(analize.diff(list1, list2).getChanged(), is(2));
         assertThat(analize.diff(list1, list2).getAdded(), is(1));
-        assertThat(analize.diff(list1, list2).getDeleted(), is(1));
+        assertThat(analize.diff(list1, list2).getDeleted(), is(2));
     }
 }

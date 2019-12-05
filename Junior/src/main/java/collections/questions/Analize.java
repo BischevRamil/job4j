@@ -1,7 +1,9 @@
 package collections.questions;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * @author Bischev Ramil
@@ -14,62 +16,22 @@ import java.util.Objects;
 public class Analize {
 
     public Info diff(List<User> previous, List<User> current) {
-        Info info = new Info();
-        info.setChanged(diffChange(previous, current));
-        info.setAdded(diffAdded(previous, current));
-        info.setDeleted(diffDeleted(previous, current));
-        return info;
-    }
-
-    /**
-     * Метод возвращает количество измененных юзеров. Проверяет хеш-коды юзеров каждый с каждым, если коды
-     * одинаковые, но equals == false, значит было изменение имени.
-     * @param previous
-     * @param current
-     * @return
-     */
-    private int diffChange(List<User> previous, List<User> current) {
+        Map<Integer, User> map = current.stream().collect(Collectors.toMap(User::getId, i -> i));
         int changed = 0;
+        int deleted = 0;
         for (User userPrev : previous) {
+            User removed = map.remove(userPrev.getId());
+            if (removed == null) {
+                deleted++;
+            }
             for (User userCur : current) {
                 if (userPrev.hashCode() == userCur.hashCode() && !(userPrev.equals(userCur))) {
                     changed++;
                 }
             }
         }
-        return changed;
-    }
 
-    /**
-     * Метод возвращает количество добавленных юзеров.
-     * @param previous
-     * @param current
-     * @return
-     */
-    private int diffAdded(List<User> previous, List<User> current) {
-        int added = 0;
-        for (User userCur : current) {
-            if (!userCur.contains(previous)) {
-                added++;
-            }
-        }
-        return added;
-    }
-
-    /**
-     * Метод возвращает количество удаленных юзеров.
-     * @param previous
-     * @param current
-     * @return
-     */
-    private int diffDeleted(List<User> previous, List<User> current) {
-        int deleted = 0;
-        for (User userPrev : previous) {
-            if (!userPrev.contains(current)) {
-                deleted++;
-            }
-        }
-        return deleted;
+        return new Info(map.size(), changed, deleted);
     }
 
     public static class User {
@@ -81,15 +43,8 @@ public class Analize {
             this.name = name;
         }
 
-        boolean contains(List<User> list) {
-            boolean rsl = false;
-            for (User user : list) {
-                if (this.hashCode() == user.hashCode()) {
-                    rsl = true;
-                    break;
-                }
-            }
-            return rsl;
+        public int getId() {
+            return id;
         }
 
         @Override
@@ -111,6 +66,12 @@ public class Analize {
         int added;
         int changed;
         int deleted;
+
+        public Info(int added, int changed, int deleted) {
+            this.added = added;
+            this.changed = changed;
+            this.deleted = deleted;
+        }
 
         void setAdded(int added) {
             this.added = added;
