@@ -44,7 +44,10 @@ public class Analizy {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        writeToFile(target);
+    }
 
+    private void writeToFile(String target) {
         try (PrintWriter out = new PrintWriter(new FileOutputStream(target))) {
             for (String string : listTimes) {
                 out.println(string);
