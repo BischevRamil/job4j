@@ -1,4 +1,4 @@
-package IO.IO;
+package io.io;
 
 import java.io.*;
 import java.util.ArrayList;
