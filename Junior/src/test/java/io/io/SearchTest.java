@@ -31,7 +31,7 @@ public class SearchTest {
         File tempFile5 = File.createTempFile(prefix, suffix1, dir2);
         File tempFile6 = File.createTempFile(prefix, suffix2, dir3);
 
-        List<File> actual = new Search().files(System.getProperty("java.io.tmpdir") + "/rootDir", List.of("txt"));
+        List<File> actual = new Search().files(System.getProperty("java.io.tmpdir") + "/rootDir", List.of("txt"), true);
         assertThat(actual.size(), is(3));
 
     }

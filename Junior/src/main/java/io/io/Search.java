@@ -12,19 +12,22 @@ import java.util.List;
 public class Search {
     private  List<File> result = new ArrayList<>();
 
-    public List<File> files(String parent, List<String> exts) {
+    public List<File> files(String parent, List<String> exts, boolean flag) {
         File fileParent = new File(parent);
         File[] listFiles = fileParent.listFiles();
         if (listFiles != null) {
             for (File file : listFiles) {
                 if (!file.isDirectory()) {
                     for (String ext : exts) {
-                        if (file.getName().endsWith(ext)) {
+                        if (flag && file.getName().endsWith(ext)) {
+                            result.add(file);
+                        }
+                        if (!flag && !file.getName().endsWith(ext)) {
                             result.add(file);
                         }
                     }
                 } else {
-                    this.files(file.getPath(), exts);
+                    this.files(file.getPath(), exts, flag);
                 }
             }
         }
