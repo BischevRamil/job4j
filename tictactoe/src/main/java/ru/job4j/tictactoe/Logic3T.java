@@ -1,4 +1,4 @@
-package job4j.tictactoe;
+package ru.job4j.tictactoe;
 
 import java.util.Arrays;
 import java.util.function.Predicate;
@@ -39,13 +39,13 @@ public class Logic3T {
     }
 
     public boolean checkXO(Predicate<Figure3T> predicate) {
-        return this.fillBy(predicate, 0, 0, 1, 0) ||
-                this.fillBy(predicate, 0, 1, 1, 0) ||
-                this.fillBy(predicate, 0, 2, 1, 0) ||
-                this.fillBy(predicate, 0, 0, 0, 1) ||
-                this.fillBy(predicate, 1, 0, 0, 1) ||
-                this.fillBy(predicate, 2, 0, 0, 1) ||
-                this.fillBy(predicate, 0, 0, 1, 1) ||
-                this.fillBy(predicate, this.table.length - 1, 0, -1, 1);
+        return this.fillBy(predicate, 0, 0, 1, 0)
+                || this.fillBy(predicate, 0, 1, 1, 0)
+                || this.fillBy(predicate, 0, 2, 1, 0)
+                || this.fillBy(predicate, 0, 0, 0, 1)
+                || this.fillBy(predicate, 1, 0, 0, 1)
+                || this.fillBy(predicate, 2, 0, 0, 1)
+                || this.fillBy(predicate, 0, 0, 1, 1)
+                || this.fillBy(predicate, this.table.length - 1, 0, -1, 1);
     }
 }
