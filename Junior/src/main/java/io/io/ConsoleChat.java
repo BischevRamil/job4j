@@ -40,26 +40,26 @@ public class ConsoleChat {
             e.printStackTrace();
         }
         do {
-            String inputString;
-            String outString;
+            String input;
+            String output;
             try {
-                inputString = scanner.nextLine();
-                this.logList.add(inputString);
-                if (inputString.equals("end")) {
-                    commands.put(inputString, true);
+                input = scanner.nextLine();
+                this.logList.add(input);
+                if ("end".equals(input)) {
+                    commands.put(input, true);
                     break;
                 }
-                if (inputString.equals("stop")) {
+                if ("stop".equals(input)) {
                     commands.put("continue", false);
                     continue;
                 }
-                if (inputString.equals("continue")) {
-                    commands.put(inputString, true);
+                if ("continue".equals(input)) {
+                    commands.put(input, true);
                 }
-                if (!inputString.isEmpty() && commands.get("continue")) {
-                    outString = this.wordsList.get(new Random().nextInt(this.wordsList.size()));
-                    System.out.println(outString);
-                    this.logList.add(outString);
+                if (!input.isEmpty() && commands.get("continue")) {
+                    output = this.wordsList.get(new Random().nextInt(this.wordsList.size()));
+                    System.out.println(output);
+                    this.logList.add(output);
                 }
             } catch (Exception ex) {
                 ex.printStackTrace();
