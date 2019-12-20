@@ -9,25 +9,25 @@ import java.util.List;
  * @since 2019-12-09
  * Метод сканирует дерево каталогов и возвращает список файлов с заданными расширениями.
  * 2019-12-11 Кооректировка. Программа умеет работать с расширениями и с именами файлов. В качестве параметра
- * можно передать расширение вида *.txt *.doc и т.п. или имя файла без расширения. А так же если передать flag==false
+ * можно передать расширение вида *.txt *.doc и т.п. или имя файла без расширения. А так же если передать include==false
  * то вернет все за исключением заданных параметров.
  */
 public class Search {
     private  List<File> result = new ArrayList<>();
 
-    public List<File> files(String parent, List<String> exts, boolean flag) {
+    public List<File> files(String parent, List<String> exts, boolean include) {
         File fileParent = new File(parent);
         File[] listFiles = fileParent.listFiles();
         if (listFiles != null) {
             for (File file : listFiles) {
                 if (!file.isDirectory()) {
                     for (String ext : exts) {
-                        if ((flag && checkExt(file, ext)) || (!flag && !checkExt(file, ext))) {
+                        if ((include && checkExt(file, ext)) || (!include && !checkExt(file, ext))) {
                             result.add(file);
                         }
                     }
                 } else {
-                    this.files(file.getPath(), exts, flag);
+                    this.files(file.getPath(), exts, include);
                 }
             }
         }
