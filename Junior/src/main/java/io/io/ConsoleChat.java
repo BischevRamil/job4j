@@ -1,7 +1,10 @@
 package io.io;
 
 import java.io.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+import java.util.Scanner;
 import java.util.stream.Collectors;
 
 /**
@@ -15,7 +18,11 @@ import java.util.stream.Collectors;
  */
 public class ConsoleChat {
 
-    private Map<String, Boolean> commands = new HashMap<>();
+    static final String STOP = "stop";
+    static final String CONTINUE = "continue";
+    static final String END = "end";
+    private final int WORDS_LENGHT = 10;
+    private final int WORDS_QUANTITY = 100;
     private String inputFile;
     private String outputFile;
     private List<String> wordsList;
@@ -23,8 +30,6 @@ public class ConsoleChat {
     private final Scanner scanner;
 
     public ConsoleChat(String input, String output) {
-        commands.put("continue", true);
-        commands.put("end", false);
         this.inputFile = input;
         this.outputFile = output;
         this.scanner = new Scanner(System.in);
@@ -39,24 +44,26 @@ public class ConsoleChat {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        Boolean endChat = false;
+        Boolean continueChat = true;
         do {
             String input;
             String output;
             try {
                 input = scanner.nextLine();
                 this.logList.add(input);
-                if ("end".equals(input)) {
-                    commands.put(input, true);
+                if (END.equals(input)) {
+                    endChat = true;
                     break;
                 }
-                if ("stop".equals(input)) {
-                    commands.put("continue", false);
+                if (STOP.equals(input)) {
+                    continueChat = false;
                     continue;
                 }
-                if ("continue".equals(input)) {
-                    commands.put(input, true);
+                if (CONTINUE.equals(input)) {
+                    continueChat = true;
                 }
-                if (!input.isEmpty() && commands.get("continue")) {
+                if (!input.isEmpty() && continueChat) {
                     output = this.wordsList.get(new Random().nextInt(this.wordsList.size()));
                     System.out.println(output);
                     this.logList.add(output);
@@ -64,7 +71,7 @@ public class ConsoleChat {
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
-        } while (!commands.get("end"));
+        } while (!endChat);
         this.writeLog();
     }
 
@@ -79,14 +86,12 @@ public class ConsoleChat {
     }
 
     private void generateWords() {
-        int wordsQuontity = 100;
-        int wordsLenght = 10;
         String s = "abcdefghijklmnopqrstuvwxyz";
         StringBuilder simpleWord = new StringBuilder();
         try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(new File(System.getProperty("java.io.tmpdir") + this.inputFile)))) {
-            for (int entity = 1; entity <= wordsQuontity; entity++) {
+            for (int entity = 1; entity <= WORDS_QUANTITY; entity++) {
                 simpleWord.setLength(0);
-                for (int i = 0; i < wordsLenght; i++) {
+                for (int i = 0; i < WORDS_LENGHT; i++) {
                     simpleWord.append(s.charAt(new Random().nextInt(s.length())));
                 }
                 bufferedWriter.write(simpleWord.toString());
