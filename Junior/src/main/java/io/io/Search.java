@@ -3,6 +3,7 @@ package io.io;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
 
 /**
  * @author Ramil Bischev
@@ -16,32 +17,48 @@ public class Search {
     private  List<File> result = new ArrayList<>();
 
     public List<File> files(String parent, List<String> exts, boolean include) {
+        for (String ext : exts) {
+            Predicate<File> predicate = file -> this.checkExt(file, ext);
+            getByPredicate(parent, predicate, include);
+        }
+        return result;
+    }
+
+    /**
+     * Метод возвращает список файлов, которые соответствуют переданному предикату.
+     * @param parent Путь до файла или директории.
+     * @param predicate Предикат.
+     */
+    private List<File> getByPredicate(String parent, Predicate<File> predicate, boolean include) {
         File fileParent = new File(parent);
         File[] listFiles = fileParent.listFiles();
         if (listFiles != null) {
             for (File file : listFiles) {
                 if (!file.isDirectory()) {
-                    for (String ext : exts) {
-                        if ((include && checkExt(file, ext)) || (!include && !checkExt(file, ext))) {
-                            result.add(file);
-                        }
+                    if (include && predicate.test(file) || !include && !predicate.test(file)) {
+                        result.add(file);
                     }
                 } else {
-                    this.files(file.getPath(), exts, include);
+                    this.getByPredicate(file.getPath(), predicate, include);
                 }
             }
         }
         return result;
     }
 
-    private boolean checkExt(File file, String predict) {
+    /**
+     * Соответствует ли файл заданному условию.
+     * @param file Проверяемый файл.
+     * @param ext Условие (Маска или имя файла)
+     */
+    private boolean checkExt(File file, String ext) {
         boolean rsl = false;
-        if (predict.contains("*.")) {
-            if (file.getName().endsWith(predict.substring(predict.lastIndexOf('.')))) {
+        if (ext.contains("*.")) {
+            if (file.getName().endsWith(ext.substring(ext.lastIndexOf('.')))) {
                 rsl = true;
             }
         } else {
-            if (file.getName().substring(0, file.getName().lastIndexOf('.')).equals(predict)) {
+            if (file.getName().substring(0, file.getName().lastIndexOf('.')).equals(ext)) {
                 rsl = true;
             }
         }
