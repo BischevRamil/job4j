@@ -3,6 +3,7 @@ package io.io;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.BiPredicate;
 import java.util.function.Predicate;
 
 /**
@@ -17,10 +18,13 @@ public class Search {
     private  List<File> result = new ArrayList<>();
 
     public List<File> files(String parent, List<String> exts, boolean include) {
-        for (String ext : exts) {
-            Predicate<File> predicate = file -> this.checkExt(file, ext);
-            getByPredicate(parent, predicate, include);
-        }
+        getByPredicate(parent, s1 -> {
+            boolean rsl = false;
+            if ((this.checkExt(s1, exts) && include) || (!this.checkExt(s1, exts) && !include)) {
+                rsl = true;
+            }
+            return rsl;
+        });
         return result;
     }
 
@@ -29,37 +33,40 @@ public class Search {
      * @param parent Путь до файла или директории.
      * @param predicate Предикат.
      */
-    private List<File> getByPredicate(String parent, Predicate<File> predicate, boolean include) {
+    private void getByPredicate(String parent, Predicate<File> predicate) {
         File fileParent = new File(parent);
         File[] listFiles = fileParent.listFiles();
         if (listFiles != null) {
             for (File file : listFiles) {
                 if (!file.isDirectory()) {
-                    if (include && predicate.test(file) || !include && !predicate.test(file)) {
+                    if (predicate.test(file)) {
                         result.add(file);
                     }
                 } else {
-                    this.getByPredicate(file.getPath(), predicate, include);
+                    this.getByPredicate(file.getPath(), predicate);
                 }
             }
         }
-        return result;
     }
 
     /**
      * Соответствует ли файл заданному условию.
      * @param file Проверяемый файл.
-     * @param ext Условие (Маска или имя файла)
+     * @param exts Условие (Маска или имя файла). Список.
      */
-    private boolean checkExt(File file, String ext) {
+    private boolean checkExt(File file, List<String> exts) {
         boolean rsl = false;
-        if (ext.contains("*.")) {
-            if (file.getName().endsWith(ext.substring(ext.lastIndexOf('.')))) {
-                rsl = true;
-            }
-        } else {
-            if (file.getName().substring(0, file.getName().lastIndexOf('.')).equals(ext)) {
-                rsl = true;
+        for (String ext : exts) {
+            if (ext.contains("*.")) {
+                if (file.getName().endsWith(ext.substring(ext.lastIndexOf('.')))) {
+                    rsl = true;
+                    break;
+                }
+            } else {
+                if (file.getName().substring(0, file.getName().lastIndexOf('.')).equals(ext)) {
+                    rsl = true;
+                    break;
+                }
             }
         }
         return rsl;
