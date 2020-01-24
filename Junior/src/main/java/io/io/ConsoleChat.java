@@ -21,8 +21,8 @@ public class ConsoleChat {
     static final String STOP = "stop";
     static final String CONTINUE = "continue";
     static final String END = "end";
-    private final int WORDS_LENGHT = 10;
-    private final int WORDS_QUANTITY = 100;
+    private final int wordsLenght = 10;
+    private final int wordsQuantity = 100;
     private String inputFile;
     private String outputFile;
     private List<String> wordsList;
@@ -89,9 +89,9 @@ public class ConsoleChat {
         String s = "abcdefghijklmnopqrstuvwxyz";
         StringBuilder simpleWord = new StringBuilder();
         try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(new File(System.getProperty("java.io.tmpdir") + this.inputFile)))) {
-            for (int entity = 1; entity <= WORDS_QUANTITY; entity++) {
+            for (int entity = 1; entity <= wordsQuantity; entity++) {
                 simpleWord.setLength(0);
-                for (int i = 0; i < WORDS_LENGHT; i++) {
+                for (int i = 0; i < wordsLenght; i++) {
                     simpleWord.append(s.charAt(new Random().nextInt(s.length())));
                 }
                 bufferedWriter.write(simpleWord.toString());
