@@ -2,7 +2,9 @@ package io.io;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 import java.util.function.BiPredicate;
 import java.util.function.Predicate;
 
@@ -35,15 +37,21 @@ public class Search {
      */
     private void getByPredicate(String parent, Predicate<File> predicate) {
         File fileParent = new File(parent);
-        File[] listFiles = fileParent.listFiles();
-        if (listFiles != null) {
-            for (File file : listFiles) {
-                if (!file.isDirectory()) {
-                    if (predicate.test(file)) {
-                        result.add(file);
+        Queue<File> fileQueue = new LinkedList<>();
+        fileQueue.offer(fileParent);
+        File[] deepDirectory = null;
+        while(!fileQueue.isEmpty()) {
+            File current = fileQueue.poll();
+            if (!current.isDirectory()) {
+                if (predicate.test(current)) {
+                    result.add(current);
+                }
+            } else {
+                deepDirectory = current.listFiles();
+                if (deepDirectory != null) {
+                    for (File value : deepDirectory) {
+                        fileQueue.offer(value);
                     }
-                } else {
-                    this.getByPredicate(file.getPath(), predicate);
                 }
             }
         }
