@@ -35,7 +35,7 @@ public class Search {
      * @param parent Путь до файла или директории.
      * @param predicate Предикат.
      */
-    private void getByPredicate(String parent, Predicate<File> predicate) {
+    public List<File> getByPredicate(String parent, Predicate<File> predicate) {
         File fileParent = new File(parent);
         Queue<File> fileQueue = new LinkedList<>();
         fileQueue.offer(fileParent);
@@ -55,6 +55,7 @@ public class Search {
                 }
             }
         }
+        return this.result;
     }
 
     /**

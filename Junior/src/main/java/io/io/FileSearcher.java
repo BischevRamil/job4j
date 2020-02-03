@@ -3,78 +3,79 @@ package io.io;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /**
  * @author Bischev Ramil
  * @since 2020-01-19
- * Программа поиска файлов в каталоге и подкаталогах.
- * Запускается с параметрами:
- * -d - обязательный параметр. Каталог в котором искать.
- * -n - обязательный параметр. Маска файла или имя файла.
- * -o - обязательный параметр. Название лога, куда будут записаны результаты. Лог-файл появится в temp-папке вашей ОС.
- * -e - необязательный параметр. Флаг, если указан, то искать будет все файлы за исключением указанного после параметра -n.
- * Например  FileSearcher.jar -d c:\ -n *.txt -o log.txt -e найдет все файлы за исключением с расширением txt в директории c:\
- * и запишет результат в файл log.txt.
+ * 1. Создать программу для поиска файла.
+ * 2. Программа должна искать данные в заданном каталоге и подкаталогах.
+ * 3. Имя файла может задаваться, целиком или по маске.
+ * 4. Программа должна собираться в jar и запускаться через java -jar find.jar -d c:/ -n *.txt -m -o log.txt
+ * Ключи
+ * -d - директория в которая начинать поиск.
+ * -n - имя файла или маска.
+ * -m - искать по маске, либо -f - полное совпадение имени.
+ * -o - результат записать в файл.
+ * 5. Программа должна записывать результат в файл.
+ * 6. В программе должна быть валидация ключей и подсказка.
  */
+
 public class FileSearcher {
-    private List<File> result = new ArrayList<>();
+    private static List<File> result = new ArrayList<>();
     private static final String TF = System.getProperty("java.io.tmpdir");
     private static final String LN = System.getProperty("line.separator");
+    private static String path = "";
+    private static String nameFile = "";
+    private static String log = "";
+    private static Boolean isExtension = false;
 
     public static void main(String[] args) {
-        String path = "";
-        List<String> exts = new ArrayList<>();
-        String log = "";
-        boolean include = true;
-        for (int i = 0; i < args.length; i++) {
-            switch (args[i]) {
-                case ("-d"):
-                    path = args[++i];
-                    break;
-                case ("-n"):
-                    String ext = args[++i];
-                    exts.add(ext);
-                    break;
-                case ("-o"):
-                    log = args[++i];
-                    break;
-                case ("-e"):
-                    include = false;
-                    break;
-                default:
-                    break;
-            }
-        }
-        if (isValid(args)) {
-            FileSearcher fileSearcher = new FileSearcher();
-            fileSearcher.run(path, exts, include);
-            fileSearcher.writeLog(log);
+      run(args);
+    }
+
+    private static void run(String[] args) {
+        if (readArgs(args)) {
+            search(path, nameFile, isExtension);
+            writeLog(log);
         } else {
             printHelp();
         }
     }
 
     /**
-     * Валидация ключей.
+     * Метод считывания параметров и валидации ключей.
      * @param args Входящие параметры.
-     * @return возвращает true если параметры верны.
+     * @return true если параметры валидны.
      */
-    private static boolean isValid(String[] args) {
+    private static boolean readArgs(String[] args) {
         int val = 0;
-        for (String arg : args) {
-            switch (arg) {
+        for (int i = 0; i < args.length; i++) {
+            switch (args[i]) {
                 case ("-d"):
+                    path = args[++i];
+                    val++;
+                    break;
                 case ("-n"):
+                    nameFile = args[++i];
+                    val++;
+                    break;
                 case ("-o"):
+                    log = args[++i];
+                    val++;
+                    break;
+                case ("-m"):
+                    isExtension = true;
+                    val++;
+                    break;
+                case ("-f"):
                     val++;
                     break;
                 default:
                     break;
             }
         }
-        return val == 3;
+        return val == 4;
     }
 
     /**
@@ -84,17 +85,17 @@ public class FileSearcher {
         System.out.println("Подсказка:"
                 + LN + "-d - обязательный параметр. Каталог в котором искать."
                 + LN + "-n - обязательный параметр. Маска файла или имя файла."
-                + LN + "-o - обязательный параметр. Название лога, куда будут записаны результаты. Лог-файл появится в temp-папке вашей ОС."
-                + LN + "-e - необязательный параметр. Флаг, если указан, то искать будет все файлы за исключением указанного после параметра -n.");
+                + LN + "-m - искать по маске, либо -f - полное совпадение имени."
+                + LN + "-o - обязательный параметр. Название лога, куда будут записаны результаты. Лог-файл появится в temp-папке вашей ОС.");
     }
 
     /**
      * Метод записи результатов в файл.
      * @param outputFile название файла.
      */
-    private void writeLog(String outputFile) {
+    private static void writeLog(String outputFile) {
         try (PrintWriter out = new PrintWriter(new FileOutputStream(TF + File.separator + outputFile))) {
-            for (File file : this.result) {
+            for (File file : result) {
                 out.println(file.getName());
             }
         } catch (Exception e) {
@@ -102,9 +103,27 @@ public class FileSearcher {
         }
     }
 
-    private void run(String path, List<String> exts, Boolean include) {
-        Search fileSearch = new Search();
-        result = fileSearch.files(path, exts, include);
-        System.out.println(this.result);
+    /**
+     *
+     * @param parent каталог поиска
+     * @param pattern полное имя или маска
+     * @param isExt true если поиск по маске, false если по полному совпадению.
+     */
+    private static void search(String parent, String pattern, Boolean isExt) {
+        Search newSearch = new Search();
+        result = newSearch.getByPredicate(parent, s1 -> (accept(s1, pattern, isExt)));
+
+        System.out.println("Файлов найдено: " + result.size()
+                + LN + "Результат записан в файл:" + TF + "/" + log);
+    }
+
+    private static boolean accept(File name, String nameFile, Boolean isExt) {
+        boolean rsl = false;
+        if (nameFile.contains("*.")) {
+            if (name.getName().endsWith(nameFile.substring(nameFile.lastIndexOf('.')))) {
+                rsl = true;
+            }
+        }
+        return (rsl && isExt) || (name.getName().equals(nameFile) && !isExt);
     }
 }
