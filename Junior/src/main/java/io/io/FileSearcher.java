@@ -30,12 +30,14 @@ public class FileSearcher {
     private static String log = "";
     private static Boolean isExtension = false;
 
+
     public static void main(String[] args) {
       run(args);
     }
 
     private static void run(String[] args) {
-        if (readArgs(args)) {
+        if (isValid(args)) {
+            readArgs(args);
             search(path, nameFile, isExtension);
             writeLog(log);
         } else {
@@ -44,38 +46,28 @@ public class FileSearcher {
     }
 
     /**
-     * Метод считывания параметров и валидации ключей.
+     * Метод считывания параметров.
      * @param args Входящие параметры.
-     * @return true если параметры валидны.
      */
-    private static boolean readArgs(String[] args) {
-        int val = 0;
-        for (int i = 0; i < args.length; i++) {
-            switch (args[i]) {
-                case ("-d"):
-                    path = args[++i];
-                    val++;
-                    break;
-                case ("-n"):
-                    nameFile = args[++i];
-                    val++;
-                    break;
-                case ("-o"):
-                    log = args[++i];
-                    val++;
-                    break;
-                case ("-m"):
-                    isExtension = true;
-                    val++;
-                    break;
-                case ("-f"):
-                    val++;
-                    break;
-                default:
-                    break;
-            }
-        }
-        return val == 4;
+    private static void readArgs(String[] args) {
+        Args arguments = new Args(args);
+        path = arguments.directory();
+        nameFile = arguments.nameFile();
+        log = arguments.output();
+        isExtension = arguments.mask();
+    }
+
+    /**
+     * Метод валидации ключей
+     * @param args Входящие параметры.
+     * @return Валидны ли.
+     */
+    private static boolean isValid(String[] args) {
+        return args[0].equals("-d")
+                && args[2].equals("-n")
+                && (args[4].equals("-m") || args[4].equals("-f"))
+                && args[5].equals("-o");
+
     }
 
     /**
@@ -85,7 +77,7 @@ public class FileSearcher {
         System.out.println("Подсказка:"
                 + LN + "-d - обязательный параметр. Каталог в котором искать."
                 + LN + "-n - обязательный параметр. Маска файла или имя файла."
-                + LN + "-m - искать по маске, либо -f - полное совпадение имени."
+                + LN + "-m - искать по маске, либо -f - полное совпадение имени. (Обязательный параметр)"
                 + LN + "-o - обязательный параметр. Название лога, куда будут записаны результаты. Лог-файл появится в temp-папке вашей ОС.");
     }
 
