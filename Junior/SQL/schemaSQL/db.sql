@@ -1,4 +1,4 @@
-CREATE DATABASE job4j;
+CREATE DATABASE schema;
 
-\c job4j postgres localhost 5432
+\c schema
 

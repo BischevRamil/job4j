@@ -1,103 +1,51 @@
-CREATE TABLE attachs
-(
-  attachs_id bigint NOT NULL,
-  item_id bigint NOT NULL,
-  attach varchar(50) NOT NULL
-);
+create table rules (
+    id serial primary key,
+    rule varchar(50) not null
+    );
 
-ALTER TABLE attachs ADD CONSTRAINT pk_attachs
-  PRIMARY KEY (attachs_id);
+create table roles (
+    id serial primary key,
+    role varchar(50) not null
+    );
 
-CREATE TABLE category
-(
-  category varchar(50) NOT NULL
-);
+create table role_rules (
+    id serial primary key,
+    role_id integer references roles(id) not null,
+    rule_id integer references rules(id) not null
+    );
 
-ALTER TABLE category ADD CONSTRAINT pk_category
-  PRIMARY KEY (category);
+create table users (
+    id serial primary key,
+    name varchar(50) not null,
+    role_id integer references roles(id) not null
+    );
 
-CREATE TABLE comments
-(
-  comments_id bigint NOT NULL,
-  item_id bigint NOT NULL,
-  comment varchar(50) NOT NULL
-);
+create table category (
+    id serial primary key,
+    category varchar(50) not null
+    );
 
-ALTER TABLE comments ADD CONSTRAINT pk_comments
-  PRIMARY KEY (comments_id);
+create table state (
+    id serial primary key,
+    state varchar(50) not null
+    );
 
-CREATE TABLE items
-(
-  items_id bigint NOT NULL,
-  user_id bigint NOT NULL,
-  category varchar(50) NOT NULL,
-  state varchar(50) NOT NULL
-);
+create table items (
+    id serial primary key,
+    user_id integer references users(id) not null,
+    category_id integer references category(id) not null,
+    state_id integer references state(id) not null
+    );
 
-ALTER TABLE items ADD CONSTRAINT pk_items
-  PRIMARY KEY (items_id);
+create table comments (
+    id serial primary key,
+    item_id integer references items(id) not null,
+    comment varchar(50)
+    );
 
-CREATE TABLE role_rules
-(
-  role varchar(50) NOT NULL,
-  rule varchar(50) NOT NULL
-);
-
-CREATE TABLE roles
-(
-  role varchar(50) NOT NULL
-);
-
-ALTER TABLE roles ADD CONSTRAINT pk_roles
-  PRIMARY KEY (role);
-
-CREATE TABLE rules
-(
-  rule varchar(50) NOT NULL
-);
-
-ALTER TABLE rules ADD CONSTRAINT pk_rules
-  PRIMARY KEY (rule);
-
-CREATE TABLE state
-(
-  state varchar(50) NOT NULL
-);
-
-ALTER TABLE state ADD CONSTRAINT pk_state
-  PRIMARY KEY (state);
-
-CREATE TABLE users
-(
-  users_id bigint NOT NULL,
-  name varchar(50) NOT NULL,
-  role varchar(50) NOT NULL
-);
-
-ALTER TABLE users ADD CONSTRAINT pk_users
-  PRIMARY KEY (users_id);
-
-ALTER TABLE attachs ADD CONSTRAINT fk_attachs_items_id
-  FOREIGN KEY (item_id) REFERENCES items (items_id);
-
-ALTER TABLE comments ADD CONSTRAINT fk_comments_items_id
-  FOREIGN KEY (item_id) REFERENCES items (items_id);
-
-ALTER TABLE items ADD CONSTRAINT fk_items_category
-  FOREIGN KEY (category) REFERENCES category (category);
-
-ALTER TABLE items ADD CONSTRAINT fk_items_state
-  FOREIGN KEY (state) REFERENCES state (state);
-
-ALTER TABLE items ADD CONSTRAINT fk_items_users_id
-  FOREIGN KEY (user_id) REFERENCES users (users_id);
-
-ALTER TABLE role_rules ADD CONSTRAINT fk_role_rules_role
-  FOREIGN KEY (role) REFERENCES roles (role);
-
-ALTER TABLE role_rules ADD CONSTRAINT fk_role_rules_rule
-  FOREIGN KEY (rule) REFERENCES rules (rule);
-
-ALTER TABLE users ADD CONSTRAINT fk_users_role
-  FOREIGN KEY (role) REFERENCES roles (role);
+create table attachs (
+    id serial primary key,
+    item_id integer references items(id) not null,
+    attach varchar(50)
+    );
 

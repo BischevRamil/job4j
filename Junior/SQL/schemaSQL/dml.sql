@@ -1,47 +1,18 @@
-INSERT INTO roles VALUES ('administrator');
+insert into rules (rule) values ('чтение'),('запись'),('удаление'),('конфигурирование');
 
-INSERT INTO roles VALUES ('visitor');
+insert into roles (role) values ('гость'),('пользователь'),('администратор'),('супервайзер');
 
-INSERT INTO roles VALUES ('supervisor');
+insert into role_rules (role_id, rule_id) values (1, 1), (2, 1), (2, 2), (3, 1), (3, 2), (3, 3), (4, 1), (4, 2), (4, 3), (4, 4);
 
-INSERT INTO rules VALUES ('read and write');
+insert into users (name, role_id) values ('Иван', 1), ('Мария', 1), ('Дмитрий', 2), ('Саша', 2), ('Катя', 2), ('Гоги', 3), ('Петр', 4);
 
-INSERT INTO rules VALUES ('only read');
+insert into category (category) values ('срочно'), ('второстепенно');
 
-INSERT INTO rules VALUES ('root');
+insert into state (state) values ('открыта'),('закрыта'),('к исполнению'),('в архив');
 
-INSERT INTO category VALUES ('urgently');
+insert into items (user_id, category_id, state_id) values (3, 1, 1),(1, 2, 4),(6, 1, 3),(7, 2, 2),(2, 2, 1);
 
-INSERT INTO category VALUES ('secondary');
+insert into comments (item_id, comment) values (1, 'че за?'), (3, 'отличный товар'), (3, 'не очень');
 
-INSERT INTO state VALUES ('not accepted for execution');
+insert into attachs (item_id, attach) values (4, 'приложение 1'), (4, 'приложение 2'),  (5, 'приложение 3');
 
-INSERT INTO state VALUES ('accepted for execution');
-
-INSERT INTO state VALUES ('executed');
-
-INSERT INTO users VALUES (1, 'Ivan', 'visitor');
-
-INSERT INTO users VALUES (2, 'Petr', 'administrator');
-
-INSERT INTO users VALUES (3, 'Vova', 'supervisor');
-
-INSERT INTO items VALUES (1, 1, 'urgently', 'accepted for execution');
-
-INSERT INTO items VALUES (2, 1, 'secondary', 'executed');
-
-INSERT INTO comments VALUES (1, 1, 'какого лешего эта заявка не выполнена');
-
-INSERT INTO comments VALUES (2, 1, 'товар отстой...');
-
-INSERT INTO attachs VALUES (1, 1, 'application #1');
-
-INSERT INTO attachs VALUES (2, 1, 'application #2');
-
-INSERT INTO role_rules VALUES ('administrator', 'read and write');
-
-INSERT INTO role_rules VALUES ('visitor', 'only read');
-
-INSERT INTO role_rules VALUES ('supervisor', 'read and write');
-
-INSERT INTO role_rules VALUES ('supervisor', 'root');
