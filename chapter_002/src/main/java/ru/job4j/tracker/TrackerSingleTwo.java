@@ -21,5 +21,5 @@ public class TrackerSingleTwo {
         return instance;
     }
 
-    Tracker tracker = new Tracker();
+    ITracker tracker = new Tracker();
 }

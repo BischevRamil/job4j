@@ -9,6 +9,6 @@ package ru.job4j.tracker;
 public enum TrackerSingle {
     INSTANCE;
 
-    Tracker tracker = new Tracker();
+    ITracker tracker = new Tracker();
 
 }

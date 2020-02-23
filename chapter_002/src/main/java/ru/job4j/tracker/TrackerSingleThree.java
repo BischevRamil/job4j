@@ -18,7 +18,7 @@ public class TrackerSingleThree {
         return INSTANCE;
     }
 
-    Tracker tracker = new Tracker();
+    ITracker tracker = new Tracker();
 
     public static void main(String[] args) {
         TrackerSingleThree tracker = TrackerSingleThree.getInstance();

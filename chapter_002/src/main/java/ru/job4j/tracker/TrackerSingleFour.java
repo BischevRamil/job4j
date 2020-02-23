@@ -15,7 +15,7 @@ public class TrackerSingleFour {
         return Holder.INSTANCE;
     }
 
-    Tracker tracker = new Tracker();
+    ITracker tracker = new Tracker();
 
     private static final class Holder {
         private static final TrackerSingleFour INSTANCE = new TrackerSingleFour();
