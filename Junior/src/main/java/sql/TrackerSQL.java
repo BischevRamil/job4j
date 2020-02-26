@@ -19,6 +19,10 @@ public class TrackerSQL implements ITracker, AutoCloseable {
     private Connection connection;
     private static final Random RN = new Random();
 
+    public TrackerSQL() {
+        this.init();
+    }
+
     public boolean init() {
         try (InputStream in = TrackerSQL.class.getClassLoader().getResourceAsStream("app.properties")) {
             Properties config = new Properties();
@@ -54,20 +58,17 @@ public class TrackerSQL implements ITracker, AutoCloseable {
      */
     @Override
     public Item add(Item item) {
-        if (init()) {
-            item.setId(this.generateId());
-            try (PreparedStatement statement = connection.prepareStatement(SQLItems.INSERT.QUERY)) {
-                statement.setString(1, item.getId());
-                statement.setString(2, item.getName());
-                statement.setString(3, item.getDesc());
-                statement.setLong(4, item.getTime());
-                statement.execute();
+        item.setId(this.generateId());
+        try (PreparedStatement statement = connection.prepareStatement(SQLItems.INSERT.QUERY)) {
+            statement.setString(1, item.getId());
+            statement.setString(2, item.getName());
+            statement.setString(3, item.getDesc());
+            statement.setLong(4, item.getTime());
+            statement.execute();
 
-            } catch (SQLException e) {
+        } catch (SQLException e) {
                 e.printStackTrace();
-            }
         }
-
         return item;
     }
 
