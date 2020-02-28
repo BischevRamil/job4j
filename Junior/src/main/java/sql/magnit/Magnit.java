@@ -15,7 +15,7 @@ import java.net.URISyntaxException;
  * Затем эти значения выводятся из БД, составляется xml файл из них с помощью технологии JAXB.
  * XML файл конвертируется в HTML  с помощью технлогии XSLT.
  */
-public class magnit {
+public class Magnit {
 
     private static File xmlFile = new File(System.getProperty("java.io.tmpdir") + "/magnit.xml");
     private static File htmlFile = new File(System.getProperty("java.io.tmpdir") + "/magnitConvert.html");

@@ -20,6 +20,7 @@ public class Client {
         this.socket = socket;
     }
 
+    @SuppressWarnings("checkstyle:Inner assignments should be avoided.")
     public void run() throws IOException {
         PrintWriter out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(this.socket.getOutputStream())), true);
         BufferedReader in = new BufferedReader(new InputStreamReader(this.socket.getInputStream()));

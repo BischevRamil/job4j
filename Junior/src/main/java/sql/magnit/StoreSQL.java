@@ -31,10 +31,9 @@ public class StoreSQL implements AutoCloseable {
             Statement st = connect.createStatement();
             st.execute("create table if not exists entries (entry integer);");
             this.clearTable("entries");
-        }
-        catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
         return this.connect != null;
     }
 
@@ -47,7 +46,7 @@ public class StoreSQL implements AutoCloseable {
             for (int i = 1; i <= size; i++) {
                 Entry entry = new Entry();
                 entry.setEntry(generateInt());
-                try (PreparedStatement statement = connect.prepareStatement(SQLItems.INSERT.QUERY)) {
+                try (PreparedStatement statement = connect.prepareStatement(SQLItems.INSERT.query)) {
                     statement.setInt(1, entry.getEntry());
                     statement.execute();
                 }
@@ -64,7 +63,7 @@ public class StoreSQL implements AutoCloseable {
      */
     public List<Entry> load() {
         List<Entry> listResult = new ArrayList<>();
-        try (PreparedStatement st = connect.prepareStatement(SQLItems.GETALL.QUERY)) {
+        try (PreparedStatement st = connect.prepareStatement(SQLItems.GETALL.query)) {
             ResultSet resultSet = st.executeQuery();
             while (resultSet.next()) {
                 Entry entry = new Entry();
@@ -98,10 +97,10 @@ public class StoreSQL implements AutoCloseable {
         GETALL("SELECT * FROM entries;"),
         INSERT("INSERT INTO entries (entry) VALUES (?);");
 
-        String QUERY;
+        String query;
 
-        SQLItems(String QUERY) {
-            this.QUERY = QUERY;
+        SQLItems(String query) {
+            this.query = query;
         }
     }
 

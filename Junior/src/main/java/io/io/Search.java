@@ -40,7 +40,7 @@ public class Search {
         Queue<File> fileQueue = new LinkedList<>();
         fileQueue.offer(fileParent);
         File[] deepDirectory = null;
-        while(!fileQueue.isEmpty()) {
+        while (!fileQueue.isEmpty()) {
             File current = fileQueue.poll();
             if (!current.isDirectory()) {
                 if (predicate.test(current)) {
