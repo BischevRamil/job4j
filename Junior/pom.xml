@@ -11,8 +11,13 @@
 
     <artifactId>Junior</artifactId>
 
-
     <dependencies>
+        <dependency>
+            <groupId>ru.job4j.parser</groupId>
+            <artifactId>Parser</artifactId>
+            <version>3.0</version>
+        </dependency>
+
         <dependency>
             <groupId>ru.job4j</groupId>
             <artifactId>chapter_002</artifactId>

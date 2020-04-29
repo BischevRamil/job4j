@@ -2,11 +2,19 @@ package io.io.bot;
 
 import java.io.*;
 import java.net.*;
+import java.time.LocalDateTime;
+import java.util.List;
+
+import ru.job4j.parser.*;
 
 /**
  * @author Bischev Ramil
  * @since 2019-12-20
- * Серверная часть бота
+ * @version 2.0
+ * Server side of bot. If insert URL https://www.sql.ru/forum/job-offers, oracle-bot return list of vacancies from site.
+ * Please insert whitespace after URL.
+ * Before you start run mvn install with last version Parser project.
+ *
  */
 public class Server {
     private Socket socket;
@@ -24,14 +32,27 @@ public class Server {
             ask = in.readLine();
             System.out.println(ask);
             if ("Hello".equals(ask)) {
-                out.println("Hello, dear friend, I'm a oracle.");
+                out.println("Hello, dear friend, I'm a parse-oracle. Please insert next URL: https://www.sql.ru/forum/job-offers and whitespace after.");
                 out.println();
             } else if (!("exit".equals(ask))) {
-                out.println("I don't understand...");
+                if ("https://www.sql.ru/forum/job-offers ".equals(ask)) {
+                    List<Post> vacanciesList = this.getVacancies(ask);
+                    for (Post post : vacanciesList) {
+                        out.println(post.toString());
+                    }
+                } else {
+                    out.println("I don't understand");
+                }
                 out.println();
             }
         } while (!("exit".equals(ask)));
 
+    }
+
+    private List<Post> getVacancies(String url) {
+        TimeOfLastRun.setDate(LocalDateTime.of(LocalDateTime.now().getYear(), 1, 1, 0, 0));
+        Parse parser = new SqlRuParse();
+        return parser.list(url);
     }
 
     public static void main(String[] args) throws IOException {
