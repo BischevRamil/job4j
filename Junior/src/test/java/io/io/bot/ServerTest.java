@@ -22,13 +22,13 @@ public class ServerTest {
     @Test
     public void whenAskHelloThenGreatOracul() throws IOException {
         this.testServer(Joiner.on(LN).join("Hello", "exit"),
-                Joiner.on(LN).join("Hello, dear friend, I'm a oracle.", "", ""));
+                Joiner.on(LN).join("Hello, dear friend, I'm a parse-oracle. Please insert next URL: https://www.sql.ru/forum/job-offers and whitespace after.", "", ""));
     }
 
     @Test
     public void whenAskUnsupportedThenDontUnderstand() throws IOException {
         this.testServer(Joiner.on(LN).join("unsupported ask", "exit"),
-                Joiner.on(LN).join("I don't understand...", "", ""));
+                Joiner.on(LN).join("I don't understand", "", ""));
     }
 
 
