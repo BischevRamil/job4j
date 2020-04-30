@@ -13,7 +13,6 @@ import ru.job4j.parser.*;
  * @version 2.0
  * Server side of bot. If insert URL https://www.sql.ru/forum/job-offers, oracle-bot return list of vacancies from site.
  * Please insert whitespace after URL.
- * Before you start run mvn install with last version Parser project.
  *
  */
 public class Server {
