@@ -3,14 +3,15 @@ package ood.srp;
 import static org.junit.Assert.assertThat;
 import static org.hamcrest.Matchers.is;
 import org.junit.Test;
-import java.util.Calendar;
+
+import java.time.LocalDate;
 
 public class ReportEngineTest {
 
     @Test
     public void whenOldGenerated() {
         MemStore store = new MemStore();
-        Calendar now = Calendar.getInstance();
+        LocalDate now = LocalDate.now();
         Employee worker = new Employee("Ivan", now, now, 100);
         store.add(worker);
         IReportEngine engine = new ReportEngine(store);
@@ -27,7 +28,7 @@ public class ReportEngineTest {
     @Test
     public void whenHTMLGenerated() {
         MemStore store = new MemStore();
-        Calendar now = Calendar.getInstance();
+        LocalDate now = LocalDate.now();
         Employee worker = new Employee("Ivan", now, now, 100);
         store.add(worker);
         IReportEngine engine = new ReportToHTML(store);
@@ -44,7 +45,7 @@ public class ReportEngineTest {
     @Test
     public void whenGeneratedForAccounting() {
         MemStore store = new MemStore();
-        Calendar now = Calendar.getInstance();
+        LocalDate now = LocalDate.now();
         Employee worker = new Employee("Ivan", now, now, 100);
         store.add(worker);
         IReportEngine engine = new ReportForAccounting(store, 1.5);
@@ -61,7 +62,7 @@ public class ReportEngineTest {
     @Test
     public void whenGeneratedForHR() {
         MemStore store = new MemStore();
-        Calendar now = Calendar.getInstance();
+        LocalDate now = LocalDate.now();
         Employee worker = new Employee("Ivan", now, now, 100);
         Employee worker1 = new Employee("Petr", now, now, 132);
         Employee worker2 = new Employee("Sasha", now, now, 80);
@@ -85,6 +86,40 @@ public class ReportEngineTest {
                 .append(System.lineSeparator())
                 .append(worker2.getName()).append(";")
                 .append(worker2.getSalary()).append(";");
+        assertThat(engine.generate(em -> true), is(expect.toString()));
+    }
+
+    @Test
+    public void whenXMLGenerated() {
+        MemStore store = new MemStore();
+        LocalDate now = LocalDate.now();
+        Employee worker = new Employee("Ivan", now, now, 100);
+        store.add(worker);
+        IReportEngine engine = new ReportToXML(store);
+        StringBuilder expect = new StringBuilder()
+                .append("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>")
+                .append("<Employers>")
+                .append("<Name>").append(worker.getName()).append("</Name>")
+                .append("<Hired>").append(worker.getHired()).append("</Hired>")
+                .append("<Fired>").append(worker.getFired()).append("</Fired>")
+                .append("<Salary>").append(worker.getSalary()).append("</Salary>")
+                .append("</Employers>");
+        assertThat(engine.generate(em -> true), is(expect.toString()));
+    }
+
+    @Test
+    public void whenJSONGenerated() {
+        MemStore store = new MemStore();
+        LocalDate now = LocalDate.now();
+        Employee worker = new Employee("Ivan", now, now, 100);
+        store.add(worker);
+        IReportEngine engine = new ReportToJSON(store);
+        StringBuilder expect = new StringBuilder()
+                .append("{").append(System.lineSeparator())
+                .append("\"name\" : \"").append(worker.getName()).append("\",").append(System.lineSeparator())
+                .append("\"hired\" : \"").append(worker.getHired()).append("\",").append(System.lineSeparator())
+                .append("\"fired\" : \"").append(worker.getFired()).append("\",").append(System.lineSeparator())
+                .append("\"salary\" : ").append(worker.getSalary()).append(System.lineSeparator()).append("}");
         assertThat(engine.generate(em -> true), is(expect.toString()));
     }
 }

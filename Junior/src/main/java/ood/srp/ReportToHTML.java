@@ -27,19 +27,7 @@ public class ReportToHTML implements IReportEngine {
                     .append(employee.getFired()).append(";")
                     .append(employee.getSalary()).append(";");
         }
-        writeReportHTML(text);
+        WriteReportToFile.write(text, reportFile);
         return text.toString();
-    }
-
-    /**
-     * Method generate HTML-file in ${System.tmpdir}/report.html
-     * @param text text
-     */
-    private void writeReportHTML(StringBuilder text) {
-        try (PrintWriter out = new PrintWriter(new FileOutputStream(reportFile))) {
-            out.println(text);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 }
