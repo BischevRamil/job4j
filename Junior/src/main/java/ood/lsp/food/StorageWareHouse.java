@@ -12,7 +12,14 @@ public class StorageWareHouse implements IStorage {
 
     @Override
     public void add(Food food) {
-        this.listFood.add(food);
+        if (this.accept(food)) {
+            this.listFood.add(food);
+        }
+    }
+
+    @Override
+    public boolean accept(Food food) {
+        return food.getShelfLife() >= 0 && food.getShelfLife() < 25;
     }
 
     @Override

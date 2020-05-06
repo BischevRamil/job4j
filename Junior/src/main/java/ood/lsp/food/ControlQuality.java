@@ -26,20 +26,12 @@ public class ControlQuality {
 
     public void doControl() {
         for (Food food : foodList) {
-            if (food.getShelfLife() >= 0 && food.getShelfLife() < 25) {
                 context = new Context(this.wareHouse);
                 context.addToStorage(food);
-            } else if (food.getShelfLife() >= 25 && food.getShelfLife() < 75) {
                 context = new Context(this.shop);
                 context.addToStorage(food);
-            } else if (food.getShelfLife() >= 75 && food.getShelfLife() < 100){
-                context = new Context(this.shop);
-                food.setDiscount(25);
-                context.addToStorage(food);
-            } else {
                 context = new Context(this.trash);
                 context.addToStorage(food);
-            }
         }
     }
 

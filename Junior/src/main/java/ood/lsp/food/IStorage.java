@@ -6,5 +6,7 @@ public interface IStorage {
 
     void add(Food food) ;
 
+    boolean accept(Food f);
+
     List<Food> getFoodList();
 }

@@ -12,7 +12,17 @@ public class StorageShop implements IStorage {
 
     @Override
     public void add(Food food) {
-        this.listFood.add(food);
+        if (this.accept(food) && food.getShelfLife() < 75) {
+            this.listFood.add(food);
+        } else if (this.accept(food) && food.getShelfLife() >= 75) {
+            food.setDiscount(25);
+            this.listFood.add(food);
+        }
+    }
+
+    @Override
+    public boolean accept(Food food) {
+        return food.getShelfLife() >= 25 && food.getShelfLife() < 100;
     }
 
     @Override
