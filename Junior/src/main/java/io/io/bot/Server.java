@@ -4,6 +4,7 @@ import java.io.*;
 import java.net.*;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.function.Predicate;
 
 import ru.job4j.parser.*;
 
@@ -35,7 +36,7 @@ public class Server {
                 out.println();
             } else if (!("exit".equals(ask))) {
                 if ("https://www.sql.ru/forum/job-offers ".equals(ask)) {
-                    List<Post> vacanciesList = this.getVacancies(ask);
+                    List<Post> vacanciesList = this.getVacancies();
                     for (Post post : vacanciesList) {
                         out.println(post.toString());
                     }
@@ -48,10 +49,11 @@ public class Server {
 
     }
 
-    private List<Post> getVacancies(String url) {
-        TimeOfLastRun.setDate(LocalDateTime.of(LocalDateTime.now().getYear(), 1, 1, 0, 0));
-        Parse parser = new SqlRuParse();
-        return parser.list(url);
+    private List<Post> getVacancies() {
+        Predicate<Post> predicate = o -> true;
+        Config config = new Config();
+        config.init();
+        return new RecordToDB(config).get(predicate);
     }
 
     public static void main(String[] args) throws IOException {
