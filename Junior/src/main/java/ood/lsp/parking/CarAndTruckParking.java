@@ -9,23 +9,41 @@ public class CarAndTruckParking implements IParking {
         this.truckParking = truckParking;
     }
 
+    /**
+     * Parks the car.
+     * @param car Car.
+     * @return true if the car is successfully parked.
+     */
     @Override
     public boolean startParking(ICar car) {
-        return false;
+        return truckParking.startParking(car) || carParking.startParking(car);
     }
 
+    /**
+     * Stops the car parking.
+     * @param car Car.
+     * @return true if the car is successfully finished parking.
+     */
     @Override
     public boolean finishParking(ICar car) {
-        return false;
+        return truckParking.finishParking(car) || carParking.finishParking(car);
     }
 
+    /**
+     * Counts the number of free parking spaces.
+     * @return the number of free parking spaces.
+     */
     @Override
     public int countFreeSpace() {
-        return 0;
+        return carParking.countFreeSpace() + truckParking.countFreeSpace();
     }
 
+    /**
+     * Checks free parking spaces.
+     * @return true if there is at least one free parking space.
+     */
     @Override
     public boolean checkFreeSpace() {
-        return false;
+        return carParking.checkFreeSpace() || truckParking.checkFreeSpace();
     }
 }

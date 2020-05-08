@@ -1,5 +1,7 @@
 package ood.lsp.parking;
 
+import java.util.Objects;
+
 public class PassengerCar implements ICar {
     private final int id;
     private final int size;
@@ -11,11 +13,28 @@ public class PassengerCar implements ICar {
 
     @Override
     public int getSize() {
-        return 0;
+        return this.size;
     }
 
     @Override
     public int getID() {
-        return 0;
+        return this.id;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        PassengerCar that = (PassengerCar) o;
+        return id == that.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }
