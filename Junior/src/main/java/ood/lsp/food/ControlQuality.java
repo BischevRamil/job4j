@@ -35,6 +35,17 @@ public class ControlQuality {
         }
     }
 
+    public void resort() {
+        this.foodList.clear();
+        this.foodList.addAll(this.getFoodsFromShop());
+        this.foodList.addAll(this.getFoodsFromWareHouse());
+        this.foodList.addAll(this.getFoodsFromTrash());
+        this.wareHouse = new StorageWareHouse();
+        this.shop = new StorageShop();
+        this.trash = new StorageTrash();
+        this.doControl();
+    }
+
     public List<Food> getFoodsFromWareHouse() {
         return this.wareHouse.getFoodList();
     }

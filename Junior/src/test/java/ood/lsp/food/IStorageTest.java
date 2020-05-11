@@ -72,4 +72,12 @@ public class IStorageTest {
     public void whenAddToTrash() {
         assertThat(this.controlQuality.getFoodsFromTrash().get(0).getName(), is("cola"));
     }
+
+    @Test
+    public void whenResort() {
+        this.controlQuality.resort();
+        assertThat(this.controlQuality.getFoodsFromTrash().size(), is(1));
+        assertThat(this.controlQuality.getFoodsFromShop().size(), is(2));
+        assertThat(this.controlQuality.getFoodsFromWareHouse().size(), is(1));
+    }
 }
