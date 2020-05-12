@@ -15,6 +15,10 @@ import java.util.List;
 public class IStorageTest {
     private List<Food> foodList = new ArrayList<>();
     private ControlQuality controlQuality;
+    private IStorage wareHouse = new StorageWareHouse();
+    private IStorage shop = new StorageShop();
+    private IStorage trash = new StorageTrash();
+    private List<IStorage> storageList = new ArrayList<>(List.of(wareHouse, shop, trash));
 
     @Before
     public void generatedFoods() {
@@ -35,7 +39,7 @@ public class IStorageTest {
         this.foodList.add(kefir);
         this.foodList.add(cola);
 
-        this.controlQuality = new ControlQuality(this.foodList);
+        this.controlQuality = new ControlQuality(this.foodList, this.storageList);
         this.controlQuality.doControl();
     }
 
@@ -54,30 +58,30 @@ public class IStorageTest {
 
     @Test
     public void whenAddToWareHouse() {
-        assertThat(this.controlQuality.getFoodsFromWareHouse().get(0).getName(), is("baton"));
+        assertThat(this.wareHouse.getFoodList().get(0).getName(), is("baton"));
     }
 
     @Test
     public void whenAddToShop() {
-        assertThat(this.controlQuality.getFoodsFromShop().get(0).getName(), is("chicken"));
+        assertThat(this.shop.getFoodList().get(0).getName(), is("chicken"));
     }
 
     @Test
     public void whenAddToShopWithDiscount() {
-        assertThat(this.controlQuality.getFoodsFromShop().get(1).getName(), is("kefir"));
-        assertThat(this.controlQuality.getFoodsFromShop().get(1).getDiscount(), is(25));
+        assertThat(this.shop.getFoodList().get(1).getName(), is("kefir"));
+        assertThat(this.shop.getFoodList().get(1).getDiscount(), is(25));
     }
 
     @Test
     public void whenAddToTrash() {
-        assertThat(this.controlQuality.getFoodsFromTrash().get(0).getName(), is("cola"));
+        assertThat(this.trash.getFoodList().get(0).getName(), is("cola"));
     }
 
     @Test
     public void whenResort() {
         this.controlQuality.resort();
-        assertThat(this.controlQuality.getFoodsFromTrash().size(), is(1));
-        assertThat(this.controlQuality.getFoodsFromShop().size(), is(2));
-        assertThat(this.controlQuality.getFoodsFromWareHouse().size(), is(1));
+        assertThat(this.trash.getFoodList().size(), is(1));
+        assertThat(this.shop.getFoodList().size(), is(2));
+        assertThat(this.wareHouse.getFoodList().size(), is(1));
     }
 }

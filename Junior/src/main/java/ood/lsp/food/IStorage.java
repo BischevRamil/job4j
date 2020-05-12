@@ -9,4 +9,6 @@ public interface IStorage {
     boolean accept(Food f);
 
     List<Food> getFoodList();
+
+    void clearFoodList();
 }

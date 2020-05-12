@@ -1,5 +1,6 @@
 package ood.lsp.food;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -11,50 +12,30 @@ import java.util.List;
  * shelf life >= 75 and < 100 -> Shop with discount = 25%;
  * other shelf life -> Trash.
  *
- * Uses pattern Strategy.
  */
 public class ControlQuality {
-    private Context context;
     private List<Food> foodList;
-    private IStorage wareHouse = new StorageWareHouse();
-    private IStorage shop = new StorageShop();
-    private IStorage trash = new StorageTrash();
+    private List<IStorage> storageList;
 
-    public ControlQuality(List<Food> foods) {
+    public ControlQuality(List<Food> foods, List<IStorage> storages) {
         this.foodList = foods;
+        this.storageList = storages;
     }
 
     public void doControl() {
         for (Food food : foodList) {
-                context = new Context(this.wareHouse);
-                context.addToStorage(food);
-                context = new Context(this.shop);
-                context.addToStorage(food);
-                context = new Context(this.trash);
-                context.addToStorage(food);
+            for (IStorage storage : storageList) {
+                storage.add(food);
+            }
         }
     }
 
     public void resort() {
         this.foodList.clear();
-        this.foodList.addAll(this.getFoodsFromShop());
-        this.foodList.addAll(this.getFoodsFromWareHouse());
-        this.foodList.addAll(this.getFoodsFromTrash());
-        this.wareHouse = new StorageWareHouse();
-        this.shop = new StorageShop();
-        this.trash = new StorageTrash();
+        for (IStorage storage : storageList) {
+            this.foodList.addAll(storage.getFoodList());
+            storage.clearFoodList();
+        }
         this.doControl();
-    }
-
-    public List<Food> getFoodsFromWareHouse() {
-        return this.wareHouse.getFoodList();
-    }
-
-    public List<Food> getFoodsFromShop() {
-        return this.shop.getFoodList();
-    }
-
-    public List<Food> getFoodsFromTrash() {
-        return this.trash.getFoodList();
     }
 }

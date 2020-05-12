@@ -26,4 +26,9 @@ public class StorageWareHouse implements IStorage {
     public List<Food> getFoodList() {
         return this.listFood;
     }
+
+    @Override
+    public void clearFoodList() {
+        this.listFood.clear();
+    }
 }
