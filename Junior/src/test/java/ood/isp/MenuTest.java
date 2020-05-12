@@ -49,4 +49,64 @@ public class MenuTest {
                 .toString();
         assertThat(this.out.toString(), is(expected));
     }
+
+    @Test
+    public void whenAddNewItemThenAdded() {
+        Item item1 = new Item("Task 1.");
+        Item item11 = new Item("Task 1.1.");
+        Item item111 = new Item("Task 1.1.1.");
+        Item item112 = new Item("Task 1.1.2.");
+        Item item12 = new Item("Task 1.2.");
+        Set<Item> items = new TreeSet<>(Set.of(item111, item1, item12, item11));
+        Menu menu = new Menu();
+        menu.addItems(items);
+        menu.addItem(item112);
+        menu.show();
+        menu.action(item111);
+        String expected = new StringJoiner(System.lineSeparator())
+                .add("--Task 1.")
+                .add("----Task 1.1.")
+                .add("------Task 1.1.1.")
+                .add("------Task 1.1.2.")
+                .add("----Task 1.2.")
+                .add("Your choose, Task 1.1.1.")
+                .toString();
+        assertThat(this.out.toString(), is(expected));
+    }
+
+    @Test
+    public void whenDeleteItemThenDeleted() {
+        Item item1 = new Item("Task 1.");
+        Item item11 = new Item("Task 1.1.");
+        Item item111 = new Item("Task 1.1.1.");
+        Item item112 = new Item("Task 1.1.2.");
+        Item item12 = new Item("Task 1.2.");
+        Set<Item> items = new TreeSet<>(Set.of(item111, item1, item12, item11, item112));
+        Menu menu = new Menu();
+        menu.addItems(items);
+        menu.removeItem("Task 1.1.2.");
+        menu.show();
+        menu.action(item111);
+        String expected = new StringJoiner(System.lineSeparator())
+                .add("--Task 1.")
+                .add("----Task 1.1.")
+                .add("------Task 1.1.1.")
+                .add("----Task 1.2.")
+                .add("Your choose, Task 1.1.1.")
+                .toString();
+        assertThat(this.out.toString(), is(expected));
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void whenTryDeleteMissingItem() throws NullPointerException{
+        Item item1 = new Item("Task 1.");
+        Item item11 = new Item("Task 1.1.");
+        Item item111 = new Item("Task 1.1.1.");
+        Item item112 = new Item("Task 1.1.2.");
+        Item item12 = new Item("Task 1.2.");
+        Set<Item> items = new TreeSet<>(Set.of(item111, item1, item12, item11, item112));
+        Menu menu = new Menu();
+        menu.addItems(items);
+        menu.removeItem("Task 1.2.3.");
+    }
 }

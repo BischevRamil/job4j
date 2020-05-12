@@ -2,6 +2,7 @@ package ood.isp;
 
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.function.Predicate;
 
 /**
  * @author Ramil Bischev
@@ -15,6 +16,24 @@ public class Menu implements IShow, IAction {
         this.itemSet.addAll(items);
     }
 
+    public void addItem(Item childNode) {
+        this.itemSet.add(childNode);
+    }
+
+    public void removeItem(String nodeId) throws NullPointerException {
+        this.itemSet.remove(this.findByName(nodeId));
+    }
+
+    private Item findByName(String nameItem) {
+        Item itemResult;
+        for (Item item : this.itemSet) {
+            if (item.getName().equals(nameItem)) {
+                itemResult = item;
+                return itemResult;
+            }
+        }
+        return null;
+    }
     @Override
     public void show() {
         for (Item item : this.itemSet) {
