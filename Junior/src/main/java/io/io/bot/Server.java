@@ -2,11 +2,8 @@ package io.io.bot;
 
 import java.io.*;
 import java.net.*;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.function.Predicate;
-
-import ru.job4j.parser.*;
 
 /**
  * @author Bischev Ramil
@@ -53,7 +50,7 @@ public class Server {
         Predicate<Post> predicate = o -> true;
         Config config = new Config();
         config.init();
-        return new RecordToDB(config).get(predicate);
+        return new ReadFromDB(config).get(predicate);
     }
 
     public static void main(String[] args) throws IOException {
