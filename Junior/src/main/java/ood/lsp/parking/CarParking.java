@@ -72,4 +72,5 @@ public class CarParking implements IParking {
     @Override
     public boolean checkFreeSpace() {
         return freeSpace > 0;
-    }}
+    }
+}

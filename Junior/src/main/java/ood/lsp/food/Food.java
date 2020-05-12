@@ -59,12 +59,12 @@ public class Food {
     }
     @Override
     public String toString() {
-        return "Food{" +
-                "name='" + name + '\'' +
-                ", createDate=" + createDate +
-                ", expireDate=" + expireDate +
-                ", price=" + price +
-                ", discount=" + discount +
-                '}';
+        return "Food{"
+                + "name='" + name + '\''
+                + ", createDate=" + createDate
+                + ", expireDate=" + expireDate
+                + ", price=" + price
+                + ", discount=" + discount
+                + '}';
     }
 }

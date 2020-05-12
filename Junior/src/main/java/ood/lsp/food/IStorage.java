@@ -4,7 +4,7 @@ import java.util.List;
 
 public interface IStorage {
 
-    void add(Food food) ;
+    void add(Food food);
 
     boolean accept(Food f);
 

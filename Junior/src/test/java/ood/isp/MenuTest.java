@@ -98,7 +98,7 @@ public class MenuTest {
     }
 
     @Test(expected = NullPointerException.class)
-    public void whenTryDeleteMissingItem() throws NullPointerException{
+    public void whenTryDeleteMissingItem() throws NullPointerException {
         Item item1 = new Item("Task 1.");
         Item item11 = new Item("Task 1.1.");
         Item item111 = new Item("Task 1.1.1.");
