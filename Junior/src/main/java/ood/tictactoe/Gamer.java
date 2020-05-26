@@ -1,10 +1,10 @@
 package ood.tictactoe;
 
-public abstract class Gamer {
+public interface Gamer {
 
-    abstract void move();
+    void move();
 
-    boolean isCellValid(int x, int y) {
+    default boolean isCellValid(int x, int y) {
         if (x < 0 || x >= Field.fieldSize || y < 0 || y >= Field.fieldSize) {
             return false;
         }

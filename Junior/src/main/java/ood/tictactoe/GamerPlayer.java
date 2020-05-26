@@ -5,7 +5,7 @@ import java.util.Scanner;
 /**
  * Player Class. Reads coordinates from the console and sets zero to the field if the field is not occupied
  */
-public class GamerPlayer extends Gamer {
+public class GamerPlayer implements Gamer {
     static Scanner vvod = new Scanner(System.in);
     static final char SYMBOL = 'O';
 
@@ -15,7 +15,7 @@ public class GamerPlayer extends Gamer {
         do {
             x = vvod.nextInt() - 1;
             y = vvod.nextInt() - 1;
-        } while (!super.isCellValid(x, y));
+        } while (!isCellValid(x, y));
         Field.set(x, y, SYMBOL);
     }
 
