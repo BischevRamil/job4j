@@ -16,13 +16,12 @@ import java.util.stream.Stream;
  * @since 2020-05-28
  */
 public class Cache {
-    private Map<String, SoftReference<String>> globalMap;
+    private Map<String, SoftReference<String>> globalMap = new HashMap<>();
     private String path;
     private static final String LS = System.lineSeparator();
 
     public Cache(String path) {
         this.path = path;
-        this.globalMap = new HashMap<>();
     }
 
     /**
