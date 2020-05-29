@@ -16,8 +16,7 @@ public class CacheTest {
         StringBuilder expected = new StringBuilder()
                 .append("Ivan")
                 .append(LS)
-                .append("Maria")
-                .append(LS);
+                .append("Maria");
         assertThat(cache.getText("name.txt"), is(expected.toString()));
     }
 
@@ -27,8 +26,7 @@ public class CacheTest {
         StringBuilder expected = new StringBuilder()
                 .append("ivan@mail.com")
                 .append(LS)
-                .append("maria@mail.com")
-                .append(LS);
+                .append("maria@mail.com");
         assertThat(cache.getText("adress.txt"), is(expected.toString()));
     }
 }

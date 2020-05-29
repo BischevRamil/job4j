@@ -7,6 +7,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
@@ -17,6 +18,7 @@ import java.util.stream.Stream;
 public class Cache {
     private Map<String, SoftReference<String>> globalMap;
     private String path;
+    private static final String LS = System.lineSeparator();
 
     public Cache(String path) {
         this.path = path;
@@ -28,15 +30,7 @@ public class Cache {
      * @param key name of file.
      */
     public void put(String key) {
-        SoftReference<String> softValue = null;
-        StringBuilder contentBuilder = new StringBuilder();
-        try (Stream<String> stream = Files.lines(Paths.get(path + key), StandardCharsets.UTF_8)) {
-            stream.forEach(s -> contentBuilder.append(s).append("\n"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        softValue = new SoftReference<>(contentBuilder.toString());
-        globalMap.put(key, softValue);
+        globalMap.put(key, readFile(key));
     }
 
     /**
@@ -50,5 +44,15 @@ public class Cache {
             this.put(key);
         }
         return this.globalMap.get(key).get();
+    }
+
+    private SoftReference<String> readFile(String key) {
+        String result = "";
+        try (Stream<String> stream = Files.lines(Paths.get(path + key), StandardCharsets.UTF_8)) {
+            result = stream.collect(Collectors.joining(LS));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return new SoftReference<>(result);
     }
 }
