@@ -16,7 +16,7 @@ import java.util.stream.Stream;
  * @since 2020-05-28
  */
 public class Cache {
-    private Map<String, SoftReference<String>> globalMap = new HashMap<>();
+    private Map<String, SoftReference<String>> values = new HashMap<>();
     private String path;
     private static final String LS = System.lineSeparator();
 
@@ -29,7 +29,7 @@ public class Cache {
      * @param key name of file.
      */
     public void put(String key) {
-        globalMap.put(key, readFile(key));
+        values.put(key, readFile(key));
     }
 
     /**
@@ -39,10 +39,10 @@ public class Cache {
      * @return value
      */
     public String getText(String key) {
-        if (this.globalMap.get(key) == null) {
+        if (this.values.get(key) == null) {
             this.put(key);
         }
-        return this.globalMap.get(key).get();
+        return this.values.get(key).get();
     }
 
     private SoftReference<String> readFile(String key) {
