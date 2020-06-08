@@ -6,7 +6,6 @@ package multithreading;
  * Class imitate load process.
  */
 public class Wget {
-
     public static void main(String[] args) {
         Thread load = new Thread(
                 () -> {
@@ -17,12 +16,9 @@ public class Wget {
                         } catch (InterruptedException ie) {
                             ie.printStackTrace();
                         }
-
                     }
-
                 }
         );
-
         load.start();
     }
 }
