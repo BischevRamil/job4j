@@ -19,6 +19,7 @@ class ConsoleProgress implements Runnable {
                 break;
                 case 2: s = "/";
                 break;
+                default: break;
             }
 
             System.out.print("\r load: " + s);
