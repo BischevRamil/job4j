@@ -29,7 +29,7 @@ public class DynSimpleArrayList<T> implements Iterable<T> {
         this.values[idx++] = element;
     }
 
-    T get(int index) {
+    public T get(int index) {
         if (index >= this.idx) {
             throw new ArrayIndexOutOfBoundsException();
         }

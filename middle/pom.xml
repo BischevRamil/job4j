@@ -11,5 +11,12 @@
 
     <artifactId>middle</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>ru.job4j</groupId>
+            <artifactId>Junior</artifactId>
+            <version>3.0</version>
+        </dependency>
+    </dependencies>
 
 </project>
