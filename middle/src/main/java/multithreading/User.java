@@ -1,14 +1,9 @@
 package multithreading;
 
-import net.jcip.annotations.GuardedBy;
-import net.jcip.annotations.ThreadSafe;
-
 import java.util.Objects;
 
-@ThreadSafe
 public class User {
     private final int id;
-    @GuardedBy("this")
     private int amount;
 
     public User(int id, int amount) {
@@ -20,15 +15,15 @@ public class User {
         return id;
     }
 
-    public synchronized int getAmount() {
+    public int getAmount() {
         return amount;
     }
 
-    public synchronized void addMoney(int money) {
+    public void addMoney(int money) {
         this.amount += money;
     }
 
-    public synchronized boolean turnDownMoney(int money) {
+    public boolean turnDownMoney(int money) {
         if (this.amount < money) {
             return false;
         } else {
