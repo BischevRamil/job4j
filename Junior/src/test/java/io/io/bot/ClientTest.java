@@ -1,6 +1,7 @@
 package io.io.bot;
 
 import com.google.common.base.Joiner;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.ByteArrayInputStream;
@@ -17,6 +18,7 @@ public class ClientTest {
     private static final String LN = System.getProperty("line.separator");
 
 
+    @Ignore
     @Test
     public void whenAskExitThenClose() throws IOException {
         this.testClient("exit", String.format("exit%s", LN));

@@ -1,5 +1,6 @@
 package io.io;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.File;
@@ -10,6 +11,7 @@ import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
 public class SearchTest {
+    @Ignore
     @Test
     public void filterFilesTest() throws IOException {
         String tmpdir = System.getProperty("java.io.tmpdir");

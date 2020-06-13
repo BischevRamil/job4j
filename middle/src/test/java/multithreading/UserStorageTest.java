@@ -24,7 +24,7 @@ public class UserStorageTest {
         User u2 = new User(2, 200);
         storage.add(u1);
         storage.add(u2);
-        assertThat(storage.transfer(1,2,50), is(true));
+        assertThat(storage.transfer(1, 2, 50), is(true));
     }
 
     @Test
@@ -34,6 +34,6 @@ public class UserStorageTest {
         User u2 = new User(2, 200);
         storage.add(u1);
         storage.add(u2);
-        assertThat(storage.transfer(1,2,150), is(false));
+        assertThat(storage.transfer(1, 2, 150), is(false));
     }
 }

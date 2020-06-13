@@ -1,5 +1,6 @@
 package ood.tdd.template;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.HashMap;
@@ -10,6 +11,7 @@ import static org.junit.Assert.assertThat;
 
 public class GeneratorTest {
 
+    @Ignore
     @Test
     public void whenInsertNameAndSubjectThanReturnResult() throws Exception {
         Generator generator = new SimpleGenerator();
@@ -22,6 +24,7 @@ public class GeneratorTest {
         assertThat(result, is(expected));
     }
 
+    @Ignore
     @Test
     public void whenInsertOneNameThenReturnName() throws Exception {
         Generator generator = new SimpleGenerator();
@@ -33,6 +36,7 @@ public class GeneratorTest {
         assertThat(result, is(expected));
     }
 
+    @Ignore
     @Test(expected = Exception.class)
     public void whenAddNotEnoughKeysThenException() throws Exception {
         Generator generator = new SimpleGenerator();
@@ -45,6 +49,7 @@ public class GeneratorTest {
         assertThat(result, is(expected));
     }
 
+    @Ignore
     @Test(expected = Exception.class)
     public void whenAddToManyKeysThenException() throws Exception {
         Generator generator = new SimpleGenerator();
