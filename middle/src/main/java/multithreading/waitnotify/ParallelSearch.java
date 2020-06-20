@@ -1,5 +1,4 @@
-package multithreading;
-
+package multithreading.waitnotify;
 
 public class ParallelSearch {
     public static void main(String[] args) throws InterruptedException {

@@ -1,4 +1,4 @@
-package multithreading;
+package multithreading.nonblockingcache;
 
 import net.jcip.annotations.ThreadSafe;
 

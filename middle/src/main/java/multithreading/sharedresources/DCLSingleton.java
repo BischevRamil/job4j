@@ -1,4 +1,4 @@
-package multithreading;
+package multithreading.sharedresources;
 
 public class DCLSingleton {
     private volatile static DCLSingleton inst;

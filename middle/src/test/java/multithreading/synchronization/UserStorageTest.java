@@ -1,5 +1,7 @@
-package multithreading;
+package multithreading.synchronization;
 
+import multithreading.synchronization.User;
+import multithreading.synchronization.UserStorage;
 import org.junit.Test;
 
 import static org.junit.Assert.assertThat;

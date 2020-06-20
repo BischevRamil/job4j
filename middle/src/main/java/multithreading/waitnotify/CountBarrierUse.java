@@ -1,4 +1,4 @@
-package multithreading;
+package multithreading.waitnotify;
 
 public class CountBarrierUse {
 

@@ -1,5 +1,6 @@
-package multithreading;
+package multithreading.synchronization;
 
+import multithreading.synchronization.Count;
 import org.junit.Test;
 
 import static org.junit.Assert.assertThat;

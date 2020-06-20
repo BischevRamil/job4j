@@ -1,4 +1,4 @@
-package multithreading;
+package multithreading.waitnotify;
 
 import net.jcip.annotations.GuardedBy;
 import net.jcip.annotations.ThreadSafe;

@@ -1,5 +1,8 @@
-package multithreading;
+package multithreading.waitnotify;
 
+import multithreading.waitnotify.Consumer;
+import multithreading.waitnotify.Producer;
+import multithreading.waitnotify.SimpleBlockingQueue;
 import org.junit.Test;
 
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package multithreading;
+package multithreading.synchronization;
 
 import collections.list.DynSimpleArrayList;
 import net.jcip.annotations.GuardedBy;

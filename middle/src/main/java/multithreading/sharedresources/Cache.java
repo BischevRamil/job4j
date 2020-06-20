@@ -1,4 +1,4 @@
-package multithreading;
+package multithreading.sharedresources;
 
 public class Cache {
     private static Cache cache;

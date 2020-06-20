@@ -1,4 +1,4 @@
-package multithreading;
+package multithreading.threads;
 
 import java.io.BufferedInputStream;
 import java.io.FileOutputStream;

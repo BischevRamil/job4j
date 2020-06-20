@@ -1,4 +1,4 @@
-package multithreading;
+package multithreading.waitnotify;
 
 public class CountBarrier {
     private final Object monitor = this;

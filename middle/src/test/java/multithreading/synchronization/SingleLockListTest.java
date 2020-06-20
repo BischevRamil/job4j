@@ -1,5 +1,6 @@
-package multithreading;
+package multithreading.synchronization;
 
+import multithreading.synchronization.SingleLockList;
 import org.junit.Test;
 
 import java.util.Set;
